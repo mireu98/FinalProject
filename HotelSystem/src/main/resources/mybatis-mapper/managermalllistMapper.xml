@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hotel.management.v1.manager.mall.Dao.ManagerMallListDao">
+
+	<!-- 관리자 : 김동욱 -->
+
+	<select id="mallsearch" resultType="hotel.management.v1.manager.mall.Dto.ManagerMallListDto$MallListSearch"> 
+		select od.username , us.tel , us.name , od.orderno , ord.orderdate , ord.contactdate ,ord.orderprice , ord.orderea 
+		from orders od left join orderdetail ord on od.orderno = ord.orderno left join users us on od.username = us.username 
+		<where>
+		<if test="name != null" > AND name like '%'||#{name}||'%'</if>
+        <if	test="tel != null"> AND tel like '%'||#{tel}||'%' </if>
+        <if test="orderNo != null"> AND od.orderNo like '%'||#{orderNo}||'%'</if>
+		</where>
+	</select>
+
+	<select id="contactmallList" resultType="hotel.management.v1.manager.mall.Dto.ManagerMallListDto$MallListSearch">
+		SELECT od.username, us.tel, us.name, od.orderno, ord.orderdate, ord.contactdate, ord.orderprice, ord.orderea 
+		FROM orders od
+		LEFT JOIN orderdetail ord ON od.orderno = ord.orderno
+		LEFT JOIN users us ON od.username = us.username
+		WHERE contactdate IS NOT NULL
+  		AND TRUNC(ord.contactdate) = TRUNC(sysdate)
+		ORDER BY od.orderno DESC
+	</select>
+
+	<delete id="orderdetaildelete"> 
+		delete from orderdetail where orderno = #{orderNo} 
+	</delete>
+
+
+	<select id="findByNo" resultType="hotel.management.v1.manager.mall.Dto.ManagerMallListDto$MallListSearch"> 
+		select * from orderdetail where orderno = #{orderNo} 
+	</select>
+
+	<select id="orderDetail" resultType="hotel.management.v1.manager.mall.Dto.ManagerMallListDto$orderDetail"> 
+		select ord.orderno, u.name, u.tel, it.itemno, it.itemname, ord.orderprice, ord.orderea 
+		from orders od join orderdetail ord on od.orderno = ord.orderno join item it on od.itemno = it.itemno
+		join users u on od.username = u.username where od.orderno = #{orderNo} 
+	</select>
+
+	<select id="findItemList" resultType="hotel.management.v1.manager.mall.Dto.ManagerMallListDto$ItemUpdate"> 
+		select itemno, itemname, itemea from item order by 1 
+	</select>
+
+	<update id="updateItemEA"> 
+		update item i set itemea=300 where itemno=#{itemno} 
+	</update>
+
+</mapper>

@@ -1,0 +1,407 @@
+<!DOCTYPE htl>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script src="/js/Hotel.js"></script>
+    <script src="/js/mall.js"></script>
+    <script src="https://kit.fontawesome.com/7fe498c607.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/scroll-out/dist/scroll-out.min.js"></script>
+    <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=72764d4407eae4771ae834fbbe85f476"></script>
+    <script src="https://js.tosspayments.com/v1/payment"></script>
+    <link href="https://unpkg.com/css.gg@2.0.0/icons/css/youtube.css" rel="stylesheet" />
+    <link href="https://unpkg.com/css.gg@2.0.0/icons/css/instagram.css" rel="stylesheet" />
+    <link href="https://unpkg.com/css.gg@2.0.0/icons/css/facebook.css" rel="stylesheet" />
+    <link href="https://unpkg.com/css.gg@2.0.0/icons/css/shopping-bag.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/mallHavenStyle.css" />
+    <title>React Hotel</title>
+    <script>
+      //스크롤 시 스티키 고정
+      window.addEventListener("scroll", function () {
+        let totalCharge = document.getElementById("totalCharge");
+        let luxuryarticle = document.getElementById("luxuryarticle");
+        let sticky = totalCharge.offsetTop;
+        if (window.pageYOffset > sticky) {
+          totalCharge.classList.add("sticky");
+          luxuryarticle.classList.add("add");
+          chargeInquiry.classList.add("fix");
+        } else {
+          totalCharge.classList.remove("sticky");
+          luxuryarticle.classList.remove("add");
+          chargeInquiry.classList.remove("fix");
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <input type="hidden" name="_csrf" id="itemListToken" th:value="${_csrf.token}" />
+    <div class="hotel">
+      <!-- 내브 -->
+      <div th:replace="~{fragment/nav :: nav}"></div>
+      <!-- 700이상 -->
+      <div id="luxury_page">
+        <!-- 요금합계 -->
+        <div id="bg-popup" style="display: none"></div>
+        <div id="totalCharge">
+          <div id="totalChargeInner">
+            <div id="totalBill">
+              <input type="text" class="pickup" id="from" name="from" placeholder="상품픽업 날짜를 고르세요" />
+              <div id="totalBox">
+                <div id="totalText">
+                  <div id="VAT">
+                    <span>요금합계</span><br />
+                    <p>부가가치세 포함</p>
+                  </div>
+                  <div id="totalPriceBox">
+                    <span class="totalPrice" id="totalPriceView"></span>
+                  </div>
+                </div>
+                <div id="totalButton">
+                  <div id="chooseButton">
+                    <span id="mallPaymentBtn"><img alt="선택" src="/img/선택버튼.png" /></span>
+                  </div>
+                </div>
+                <div id="paymentPopup" style="display: none"></div>
+                <div id="paymentPopup-box" style="display: none">
+                  <div id="paymentPopup-headerbar">
+                    <span>결제</span>
+                    <div id="paymentPopup-cancle">
+                      <a href="#none" id="paymentPopup-btn"><span id="paymentPopup-canclex">x</span></a>
+                    </div>
+                  </div>
+                  <div id="choosePayment">
+                    <div id="choosePayment-box1">
+                      <img alt="카카오페이" src="/img/kakaopay.png" width="120vw;" height="60vh;" id="kakaopay-payment" />
+                    </div>
+                    <div id="choosePayment-box2">
+                      <img alt="토스" src="/img/toss.png" width="120vw;" height="60vh;" id="toss-payment" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="totalBillDetailInner" class="totalBillDetail-collapsed">
+            <div id="innerBox">
+              <div id="innerTextBox">
+                <div id="textBox-title">
+                  <span>요금상세</span>
+                </div>
+                <div id="textBox-content">
+                  <table class="table">
+                    <colgroup>
+                      <col width="30%" />
+                      <col width="30%" />
+                      <col width="30%" />
+                      <col width="10%" />
+                    </colgroup>
+                    <thead>
+                      <tr>
+                        <th>상품명</th>
+                        <th>수량</th>
+                        <th>가격</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody id="tbody1" class="tbody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a href="#none" id="chargeInquiry"></a>
+        <!-- 동그라미 -->
+        <div id="mall-aside">
+          <div id="inmenu">
+            <h3 id="tit">명품관</h3>
+          </div>
+        </div>
+        <div id="luxuryarticle">
+          <div id="headtit">
+            <h3>명품관</h3>
+            <div id="toolbar"><i class="fa-solid fa-house"></i> > 명품관 ><a href="/hotel/mall/itemList" id="subh"> 명품관</a></div>
+          </div>
+          <div id="luxurytem">
+            <ul>
+              <li class="luxurytem-1">
+                <span th:if="${list[0].itemea > 0}">
+                  <span><img alt="침구세트" src="/img/침구세트.jpg" width="400vw;" height="300vh;" /></span><br />
+                </span>
+                <span th:if="${0 >= list[0].itemea}">
+                  <span><img alt="침구세트" src="/img/침구세트_soldout.jpg" width="400vw;" height="300vh;" /></span><br />
+                </span>
+                <span>
+                  <span class="itemName" data-index="1">BEDDING SET</span><br />
+                  <span class="itemPrice" data-index="1">3,360,000</span>
+                </span>
+                <span th:if="${list[0].itemea > 0}">
+                  <span class="item-btn" data-index="1"><img alt="선택버튼" src="/img/선택버튼.png" /></span>
+                </span>
+                <span th:if="${0 >= list[0].itemea}">
+                  <span class="item-dis-btn" data-index="1"><img alt="선택버튼" src="/img/선택버튼.png" /></span>
+                </span>
+              </li>
+              <li class="luxurytem-2">
+                <span th:if="${list[1].itemea > 0}">
+                  <span><img alt="매트리스" src="/img/매트리스.jpg" width="400vw;" height="300vh;" /></span><br />
+                </span>
+                <span th:if="${0 >= list[1].itemea}">
+                  <span><img alt="매트리스" src="/img/매트리스_soldout.jpg" width="400vw;" height="300vh;" /></span><br />
+                </span>
+                <span>
+                  <span class="itemName" data-index="2">MATTRESS</span><br />
+                  <span class="itemPrice" data-index="2">2,500,000</span>
+                </span>
+                <span th:if="${list[1].itemea > 0}">
+                  <span class="item-btn" data-index="2"><img alt="선택버튼" src="/img/선택버튼.png" /></span>
+                </span>
+                <span th:if="${0 >= list[1].itemea}">
+                  <span class="item-dis-btn" data-index="2"><img alt="선택버튼" src="/img/선택버튼.png" /></span>
+                </span>
+              </li>
+              <li class="luxurytem-3">
+                <span th:if="${list[2].itemea > 0}">
+                  <span><img alt="이불" src="/img/이불.jpg" width="400vw;" height="300vh;" /></span><br />
+                </span>
+                <span th:if="${0 >= list[2].itemea}">
+                  <span><img alt="이불" src="/img/이불_soldout.jpg" width="400vw;" height="300vh;" /></span><br />
+                </span>
+                <span>
+                  <span class="itemName" data-index="3">DUVET</span><br />
+                  <span class="itemPrice" data-index="3">1,850,000</span>
+                </span>
+                <span th:if="${list[2].itemea > 0}">
+                  <span class="item-btn" data-index="3"><img alt="선택버튼" src="/img/선택버튼.png" /></span>
+                </span>
+                <span th:if="${0 >= list[2].itemea}">
+                  <span class="item-dis-btn" data-index="3"><img alt="선택버튼" src="/img/선택버튼.png" /></span>
+                </span>
+              </li>
+              <li class="luxurytem-4">
+                <span th:if="${list[3].itemea > 0}">
+                  <span><img alt="베개" src="/img/배개.jpg" width="400vw;" height="300vh;" /></span><br />
+                </span>
+                <span th:if="${0 >= list[3].itemea}">
+                  <span><img alt="베개" src="/img/배개_soldout.jpg" width="400vw;" height="300vh;" /></span><br />
+                </span>
+                <span>
+                  <span class="itemName" data-index="4">PILLOW</span><br />
+                  <span class="itemPrice" data-index="4">400,000</span>
+                </span>
+                <span th:if="${list[3].itemea > 0}">
+                  <span class="item-btn item-btn1" data-index="4"><img alt="선택버튼" src="/img/선택버튼.png" /></span>
+                </span>
+                <span th:if="${0 >= list[3].itemea}">
+                  <span class="item-dis-btn1" data-index="4"><img alt="선택버튼" src="/img/선택버튼.png" /></span>
+                </span>
+              </li>
+              <li class="luxurytem-5">
+                <span th:if="${list[4].itemea > 0}">
+                  <span><img alt="룸스프레이" src="/img/룸스프레이.jpg" width="400vw;" height="300vh;" /></span><br />
+                </span>
+                <span th:if="${0 >= list[4].itemea}">
+                  <span><img alt="룸스프레이" src="/img/룸스프레이_soldout.jpg" width="400vw;" height="300vh;" /></span><br />
+                </span>
+                <span>
+                  <span class="itemName" data-index="5">ROOM SPRAY</span><br />
+                  <span class="itemPrice" data-index="5">180,000</span>
+                </span>
+                <span th:if="${list[4].itemea > 0}">
+                  <span class="item-btn item-btn1" data-index="5"><img alt="선택버튼" src="/img/선택버튼.png" /></span>
+                </span>
+                <span th:if="${0 >= list[4].itemea}">
+                  <span class="item-dis-btn1" data-index="5"><img alt="선택버튼" src="/img/선택버튼.png" /></span>
+                </span>
+              </li>
+              <li class="luxurytem-6">
+                <span th:if="${list[5].itemea > 0}">
+                  <span><img alt="디퓨저" src="/img/호텔고급디퓨저아로마향.png" width="400vw;" height="300vh;" /></span><br />
+                </span>
+                <span th:if="${0 >= list[5].itemea}">
+                  <span><img alt="디퓨저" src="/img/호텔고급디퓨저아로마향_soldout.png" width="400vw;" height="300vh;" /></span><br />
+                </span>
+                <span>
+                  <span class="itemName" data-index="6">DEFUSER</span><br />
+                  <span class="itemPrice" data-index="6">93,000</span>
+                </span>
+                <span th:if="${list[5].itemea > 0}">
+                  <span class="item-btn item-btn2" data-index="6"><img alt="선택버튼" src="/img/선택버튼.png" /></span>
+                </span>
+                <span th:if="${0 >= list[5].itemea}">
+                  <span class="item-dis-btn2" data-index="6"><img alt="선택버튼" src="/img/선택버튼.png" /></span>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- 반응형 -->
+      <div id="luxury_page-1">
+        <div class="mallCart-popup" style="display: none"></div>
+        <div class="mallCart-icon">
+          <div class="badge"><div id="badgeCnt"></div></div>
+          <img id="cartIcon" alt="카트" src="/img/카트.png" width="30vw;" height="30vh;" />
+        </div>
+        <div class="mallCart-list" style="display: none">
+          <div class="mallCart-title">
+            <h2 style="font-weight: bold">요금상세</h2>
+            <input type="text" class="pickup pickup-1" placeholder="상품픽업 날짜를 고르세요" id="contactDay" />
+          </div>
+          <div class="mallCart-content">
+            <table class="mallCart-table">
+              <colgroup>
+                <col width="40%" />
+                <col width="30%" />
+                <col width="20%" />
+                <col width="10%" />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>상품명</th>
+                  <th>수량</th>
+                  <th>가격</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="tbody2"></tbody>
+            </table>
+          </div>
+          <div class="cartPay">
+            <div id="cartTotalPrice">
+              <span>요금합계 :</span>
+              <span class="totalPrice" id="priceView"></span>
+            </div>
+            <div id="cartOrder">
+              <div id="payType-kakao">
+                <img alt="카카오" src="/img/kakaopay.png" id="kakaoImg" />
+              </div>
+              <div id="payType-toss">
+                <img alt="토스" src="/img/toss.png" id="tossImg" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="luxuryarticle-1">
+          <div id="headtit-1">
+            <h3>명품관</h3>
+            <div id="mallToolbar-1"><i class="fa-solid fa-house"></i> > 명품관 ><a href="/hotel/mall/itemList" id="subh"> 명품관</a></div>
+          </div>
+          <div id="mallItem">
+            <div id="mallItem-1" class="itemZone">
+              <span th:if="${list[0].itemea > 0}">
+                <img class="itemImg" alt="침구세트" src="/img/침구세트.jpg" />
+              </span>
+              <span th:if="${0 >= list[0].itemea}">
+                <img class="itemImg" alt="침구세트" src="/img/침구세트_soldout.jpg" />
+              </span>
+              <span class="itemName-1" data-index="1">BEDDING SET</span><br />
+              <span class="itemPrice-1" data-index="1">3,360,000</span>
+              <span th:if="${list[0].itemea > 0}">
+                <span class="item-btn" data-index="1"><img class="itemBtn" alt="선택버튼" src="/img/선택버튼.png" /></span>
+              </span>
+              <span th:if="${0 >= list[0].itemea}">
+                <span class="item-dis-btn-1" data-index="1"><img alt="선택버튼" src="/img/선택버튼.png" /></span>
+              </span>
+            </div>
+            <br />
+            <div id="mallItem-2" class="itemZone">
+              <span th:if="${list[1].itemea > 0}">
+                <img class="itemImg" alt="매트리스" src="/img/매트리스.jpg" />
+              </span>
+              <span th:if="${0 >= list[1].itemea}">
+                <img class="itemImg" alt="매트리스" src="/img/매트리스_soldout.jpg" />
+              </span>
+              <span class="itemName-1" data-index="2">MATTRESS</span><br />
+              <span class="itemPrice-1" data-index="2">2,500,000</span>
+              <span th:if="${list[1].itemea > 0}">
+                <span class="item-btn" data-index="2"><img class="itemBtn" alt="선택버튼" src="/img/선택버튼.png" /></span>
+              </span>
+              <span th:if="${0 >= list[1].itemea}">
+                <span class="item-dis-btn-1" data-index="2"><img alt="선택버튼" src="/img/선택버튼.png" /></span>
+              </span>
+            </div>
+            <br />
+            <div id="mallItem-3" class="itemZone">
+              <span th:if="${list[1].itemea > 0}">
+                <img class="itemImg" alt="이불" src="/img/이불.jpg" />
+              </span>
+              <span th:if="${0 >= list[1].itemea}">
+                <img class="itemImg" alt="이불" src="/img/이불_soldout.jpg" />
+              </span>
+              <span class="itemName-1" data-index="3">DUVET</span><br />
+              <span class="itemPrice-1" data-index="3">1,850,000</span>
+              <span th:if="${list[2].itemea > 0}">
+                <span class="item-btn" data-index="3"><img class="itemBtn" alt="선택버튼" src="/img/선택버튼.png" /></span>
+              </span>
+              <span th:if="${0 >= list[2].itemea}">
+                <span class="item-dis-btn-1" data-index="3"><img alt="선택버튼" src="/img/선택버튼.png" /></span>
+              </span>
+            </div>
+            <br />
+            <div id="mallItem-4" class="itemZone">
+              <span th:if="${list[3].itemea > 0}">
+                <img class="itemImg" alt="베개" src="/img/배개.jpg" />
+              </span>
+              <span th:if="${0 >= list[3].itemea}">
+                <img class="itemImg" alt="베개" src="/img/배개_soldout.jpg" />
+              </span>
+              <span class="itemName-1" data-index="4">PILLOW</span><br />
+              <span class="itemPrice-1" data-index="4">400,000</span>
+              <span th:if="${list[3].itemea > 0}">
+                <span class="item-btn" data-index="4"><img class="itemBtn1" alt="선택버튼" src="/img/선택버튼.png" /></span>
+              </span>
+              <span th:if="${0 >= list[3].itemea}">
+                <span class="item-dis-btn-2" data-index="4"><img alt="선택버튼" src="/img/선택버튼.png" /></span>
+              </span>
+            </div>
+            <br />
+            <div id="mallItem-5" class="itemZone">
+              <span th:if="${list[4].itemea > 0}">
+                <img class="itemImg" alt="룸스프레이" src="/img/룸스프레이.jpg" />
+              </span>
+              <span th:if="${0 >= list[4].itemea}">
+                <img class="itemImg" alt="룸스프레이" src="/img/룸스프레이_soldout.jpg" />
+              </span>
+              <span class="itemName-1" data-index="5">ROOM SPRAY</span><br />
+              <span class="itemPrice-1" data-index="5">180,000</span>
+              <span th:if="${list[4].itemea > 0}">
+                <span class="item-btn" data-index="5"><img class="itemBtn1" alt="선택버튼" src="/img/선택버튼.png" /></span>
+              </span>
+              <span th:if="${0 >= list[4].itemea}">
+                <span class="item-dis-btn-2" data-index="5"><img alt="선택버튼" src="/img/선택버튼.png" /></span>
+              </span>
+            </div>
+            <br />
+            <div id="mallItem-6" class="itemZone">
+              <span th:if="${list[5].itemea > 0}">
+                <img class="itemImg" alt="디퓨저" src="/img/호텔고급디퓨저아로마향.png" />
+              </span>
+              <span th:if="${0 >= list[5].itemea}">
+                <img class="itemImg" alt="디퓨저" src="/img/호텔고급디퓨저아로마향_soldout.png" />
+              </span>
+              <span class="itemName-1" data-index="6">DEFUSER</span><br />
+              <span class="itemPrice-1" data-index="6">93,000</span>
+              <span th:if="${list[5].itemea > 0}">
+                <span class="item-btn" data-index="6"><img class="itemBtn2" alt="선택버튼" src="/img/선택버튼.png" /></span>
+              </span>
+              <span th:if="${0 >= list[5].itemea}">
+                <span class="item-dis-btn-3" data-index="6"><img alt="선택버튼" src="/img/선택버튼.png" /></span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 풋터 -->
+      <div th:replace="~{fragment/footer :: footer}"></div>
+    </div>
+  </body>
+</html>

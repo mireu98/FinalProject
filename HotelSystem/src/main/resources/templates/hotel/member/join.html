@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html  lang="ko" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" style="overflow-x: hidden;">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <script src="/js/Hotel.js"></script>
+  <script src="/js/validation.js"></script>
+  <script src="https://kit.fontawesome.com/7fe498c607.js" crossorigin="anonymous"></script>
+  <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=72764d4407eae4771ae834fbbe85f476"></script>
+  <link href='https://unpkg.com/css.gg@2.0.0/icons/css/youtube.css' rel='stylesheet'>
+  <link href='https://unpkg.com/css.gg@2.0.0/icons/css/instagram.css' rel='stylesheet'>
+  <link href='https://unpkg.com/css.gg@2.0.0/icons/css/facebook.css' rel='stylesheet'>
+  <link rel="stylesheet" href="/css/style.css">
+  <script th:inline="javascript">
+	const msg=[[${msg}]];
+	if(msg!=null)
+		alert(msg);
+  </script>
+  <script>
+	  $(document).ready(function() {
+	  		$('#username').keyup(function(e) {
+	  			e.preventDefault();
+				e.stopPropagation();
+				let str= e.target.value;
+				str=str.toLowerCase();
+				e.target.value=str;
+	  		});
+	  });
+  </script>
+  <title>React Hotel</title>
+</head>
+<body>
+    <div th:replace="~{fragment/nav :: nav}"></div>
+     <div id="joinpage"> 
+      <div id="joinarticle">
+        <div id="headtit"> 
+          <h3>회원가입</h3>
+        <div id="jointool">
+          <i class="fa-solid fa-house"></i> ><a href="/hotel/member/join" id="subh"> 회원가입</a>
+        </div>
+        </div>
+        	<div id="joinintro">
+	        	<div id="joinintro1">
+	        		<span>기본입력</span>
+	        	</div>
+	        	<div id="joinintro2">
+	        		<span><span class="needinput">*</span>표시필수입력사항</span>
+	        	</div>
+        	</div>
+        	<form id="join_form" method="post" action="/hotel/member/join" enctype="multipart/form-data">
+	        <table id="jointable">
+	                  <tr>
+	                    <td class="col1"><span class="needinput">*</span>이름</td>
+	                    <td class="col2">
+	                    	<input type="text" id="name" name="name" maxlength="5">
+		                    <p id="name_msg"></p>
+	                    </td>
+	                  </tr>
+	                  <tr>
+	                  	<td class="col1"><span class="needinput">*</span>주민등록번호</td>
+	                  	<td class="col2">
+	                  	  <input type="text" id="personalId" name="personalId" maxlength="6">
+	                  	  <span style="color: #d5ccb0;">-</span>
+	                  	  <input type="password" id="personalId2" name="personalId2" maxlength="7">
+	                  	  <p id="personalId_msg"></p>
+	                  	</td>
+	                  </tr>
+	                  
+	                  <tr>
+	                    <td class="col1"><span class="needinput">*</span>이메일</td>
+	                    <td class="col2">
+	                      <input type="text" id="email" name="email">
+	                      <p id="email_msg"></p>
+	                    </td>
+	                  </tr>
+	                  <tr>
+	                    <td class="col1"><span class="needinput">*</span>휴대전화</td>
+	                    <td class="col2">
+	                      <input type="text" id="tel" name="tel" maxlength="11">
+	                      <p style="font-size:0.75em">-없이 숫자만 입력해주세요. Ex)01044526744</p>
+	                      <p id="tel_msg">
+	                    </td>
+	                  </tr>
+	                </table>
+	                <div id="joinintro3">
+	        			<span>웹사이트 비밀번호 입력</span>
+	        		</div>
+	                <table id="jointable1">
+	                  <tr>
+	                    <td class="col1"><span class="needinput">*</span>아이디</td>
+	                    <td class="col2">
+	                      <input type="text" id="username" name="username" maxlength="10">
+	                      <p id="username_msg"></p>
+	                    </td>
+	                  </tr>
+	                  <tr>
+	                    <td class="col1"><span class="needinput">*</span>비밀번호</td>
+	                    <td class="col2">
+	                      <input type="password" id="password"name="password" maxlength="16">
+	                      <p style="font-size:0.75em">비밀번호는 <span class="needinput">문자, 숫자, 특수문자(~!@#$%^&*)의 조합
+	                          최소 8자리</span>로 입력이 가능합니다.</p>
+	                      <p id="password_msg"></p>
+	                    </td>
+	                  </tr>
+	                  <tr>
+	                    <td class="col1"><span class="needinput">*</span>비밀번호 확인</td>
+	                    <td class="col2">
+	                    	<input type="password" id="password2"  maxlength="16">
+	                    	<p id="password2_msg"></p>
+	                    </td>
+	                  </tr>
+	                </table>
+	                <div class="joincreate">
+	                	<a href="/hotel/main"><input class="but3" type="button" value="가입취소"></a>
+                		<input id="join" class="but4" type="button" value="가입하기" >
+              		</div>
+              		<input type="hidden" name="_csrf" th:value="${_csrf.token}">
+              		</form>
+      </div>
+    </div>
+    
+    <!-- 반응형 -->
+    <div id="joinpage-res"> 
+      <div id="joinarticle-res">
+        <div id="headtit"> 
+          <h3>회원가입</h3>
+        <div id="jointool">
+          <i class="fa-solid fa-house"></i> ><a href="/hotel/member/join" id="subh"> 회원가입</a>
+        </div>
+        </div>
+        	<div id="joinintro-res">
+	        	<div id="joinintro1-res">
+	        		<span>기본입력</span>
+	        	</div>
+	        	<div id="joinintro2-res">
+	        		<span><span style="color:red;">*</span>표시필수입력사항</span>
+	        	</div>
+        	</div>
+        	<form id="join_form-res" method="post" action="/hotel/member/join" enctype="multipart/form-data">
+	        <table id="jointable-res">
+			          <colgroup>
+						  <col style="width: 35%;">
+						  <col style="width: 65%;">
+		  			  </colgroup>
+	                  <tr>
+	                    <td class="col1"><span style="color:red;">*</span>이름</td>
+	                    <td class="col2">
+	                    	<input type="text" id="name-res" name="name" maxlength="5">
+		                    <p id="name_msg-res"></p>
+	                    </td>
+	                  </tr>
+	                  <tr>
+	                  	<td class="col1"><span style="color:red;">*</span>주민등록번호</td>
+	                  	<td class="col2">
+	                  	  <input type="text" id="personalId-res" name="personalId" maxlength="6">
+	                  	  <span>-</span>
+	                  	  <input type="password" id="personalId2-res" name="personalId2" maxlength="7">
+	                  	  <p id="personalId_msg-res"></p>
+	                  	</td>
+	                  </tr>
+	                  
+	                  <tr>
+	                    <td class="col1"><span style="color:red;">*</span>이메일</td>
+	                    <td class="col2">
+	                      <input type="text" id="email-res" name="email">
+	                      <p id="email_msg-res"></p>
+	                    </td>
+	                  </tr>
+	                  <tr>
+	                    <td class="col1"><span style="color:red;">*</span>휴대전화</td>
+	                    <td class="col2">
+	                      <input type="text" id="tel-res" name="tel" maxlength="11">
+	                      <p style="font-size:0.75em">-없이 숫자만 입력해주세요. Ex)01044526744</p>
+	                      <p id="tel_msg-res">
+	                    </td>
+	                  </tr>
+	                </table>
+	                <div id="joinintro3-res">
+	        			<span>웹사이트 비밀번호 입력</span>
+	        		</div>
+	                <table id="jointable1-res">
+	                  <colgroup>
+						  <col style="width: 35%;">
+						  <col style="width: 65%;">
+		  			  </colgroup>
+	                  <tr>
+	                    <td class="col1"><span style="color:red;">*</span>아이디</td>
+	                    <td class="col2">
+	                      <input type="text" id="username-res" name="username" maxlength="10">
+	                      <p id="username_msg-res"></p>
+	                    </td>
+	                  </tr>
+	                  <tr>
+	                    <td class="col1"><span style="color:red;">*</span>비밀번호</td>
+	                    <td class="col2">
+	                      <input type="password" id="password-res"name="password" maxlength="16">
+	                      <p style="font-size:0.75em">비밀번호는 <span style="color:red;">문자, 숫자, 특수문자(~!@#$%^&*)의 조합
+	                          최소 8자리</span>로 입력이 가능합니다.</p>
+	                      <p id="password_msg-res"></p>
+	                    </td>
+	                  </tr>
+	                  <tr>
+	                    <td class="col1"><span style="color:red;">*</span>비밀번호 확인</td>
+	                    <td class="col2">
+	                    	<input type="password" id="password2-res"  maxlength="16">
+	                    	<p id="password2_msg-res"></p>
+	                    </td>
+	                  </tr>
+	                </table>
+	                <div class="joincreate-res">
+	                	<a href="/hotel/main"><input class="but3" type="button" value="가입취소"></a>
+                		<input class="but4" type="button" value="가입하기" >
+              		</div>
+              		<input type="hidden" name="_csrf" th:value="${_csrf.token}">
+              		</form>
+      </div>
+    </div>
+    
+    <!--풋터-->
+    <div th:replace="~{fragment/footer :: footer}"></div>
+</body>
+</html>

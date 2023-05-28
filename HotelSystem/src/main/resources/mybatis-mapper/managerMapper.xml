@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hotel.management.v1.manager.dao.ManagerDao">
+
+<!-- view booklist를 이용해서 쿼리에대한 조인을 끝낸 상태에서 where절을 추가해서 조회 -->
+    <select id="findBookList" resultType="hotel.management.v1.manager.dto.ManagerDto$findBookList">
+        select * 
+        from booklist 
+        WHERE TRUNC(checkout) = TRUNC(sysdate) or TRUNC(bookDate) = TRUNC(sysdate)
+    </select>
+
+<!-- 유저의 상세 정보를 찾기위해 이름을 받아서 검색을 해준다(like 사용) -->
+    <select id="findUserList" resultType="hotel.management.v1.manager.dto.ManagerDto$findUserList">
+        select name , tel , email , username, black , vip from users where name LIKE '%' || #{name} || '%'
+    </select>
+
+<!-- 예약취소 버튼 클릭시 book의 예약상태를 예약취소로 변경해준다. -->
+    <update id="bookCancel">
+        UPDATE book
+        SET bookStatus = '예약취소' 
+        WHERE bookTel = #{tel}
+    </update>
+
+<!-- bookNo를 tel을 이용해서 찾는다 -->
+    <select id="findBookNoByTel" resultType="int">
+        select bookNo from book where booktel = #{tel} and bookStatus='체크인대기' and TRUNC(bookdate) = TRUNC(sysdate)
+    </select>
+
+<!-- 체크아웃 버튼시 예약 정보를 체크아웃으로 변경한다. -->
+    <update id="checkOut">
+        UPDATE book
+        SET bookStatus = '체크아웃완료'
+        WHERE bookTel = #{tel}
+    </update>
+
+<!-- 전화번호를 이용해서 예약번호와 , 인원수를 뽑아낸다 -->
+    <select id="findBookNoCountByTel" resultType="hotel.management.v1.manager.dto.ManagerDto$findBookNoCount">
+        select bookNo , totalCount from book where bookTel = #{tel} and TRUNC(bookdate) = TRUNC(sysdate)
+    </select>
+
+    <select id="searchRes" resultType="int">
+        select count(*) from dinner where resNo = #{resNo}
+    </select>
+
+<!-- breakfast를 추가해주는 쿼리 (roombooking안에 breakfast가 있어 update를 이용) -->
+    <update id="updateBreakfast">
+        UPDATE roombooking
+        SET breakfast = 1
+        WHERE bookNo = #{bookNo}
+    </update>
+
+<!-- breakfast 를 취소해준다. (roombooking안에 breakfast가 있어 update를 이용) -->
+    <update id="cancelBreakfast">
+        UPDATE roombooking
+        SET breakfast = 0
+        WHERE bookNo = #{bookNo}
+    </update>
+
+<!-- dinner를 추가해주는 쿼리 dinner는 테이블이 따로 존재하기때문 insert문으로 작성했다 -->
+    <insert id="updateDinner">
+        insert into dinner values(#{bookNo} , #{totalCount} , 333)
+    </insert>
+
+<!-- 예약변경시 dinner를 취소하는(삭제)하는 쿼리 -->
+    <update id="cancelDinner">
+        delete from dinner where resno = #{bookNo}
+    </update>
+
+<!-- 고객이 선택한 roomGrade를 확인해서 해당 roomGrade의 방을 조회하는 쿼리 -->
+    <select id="roomList" resultType="hotel.management.v1.manager.dto.ManagerDto$roomList">
+        select * from room where gradeName = #{roomGrade}
+    </select>
+
+<!-- 고객의 예약정보에서 선택된방을 부여해주는 쿼리 -->
+    <update id="setRoom">
+        UPDATE roombooking 
+        SET roomNo = #{roomNo}
+        WHERE bookNo = #{bookNo}
+    </update>
+
+<!-- 체크인이 완료된 방의 상태를 사용중인 상태로 변경해주는 쿼리 -->
+    <update id="changeBookStatus">
+        UPDATE book
+        SET bookStatus = '체크인완료'
+        WHERE bookNo = #{bookNo}
+    </update>
+    
+<!-- 체크인할 방을 선택하면 해당 방번호로 조회해 상태를 체크인으로 변경해주는 쿼리 -->
+    <update id="changeRoomStatusCheckIn">
+        update room
+        set roomStatus = '체크인'
+        where roomNo = #{roomNo}
+    </update>
+
+<!-- 체크아웃한 방의 상태를 비어있음으로 변경해주는 쿼리 -->
+    <update id="changeRoomStatusEmpty">
+        update room
+        set roomStatus = '비어있음'
+        where roomNo = #{roomNo}
+    </update>
+
+<!-- 이름과 전화번호를 이용해서 고객의 상세 정보를 조회하는 쿼리 -->
+    <select id="memberDetail" resultType="hotel.management.v1.manager.dto.ManagerDto$userDetail">
+        select username , name , tel , email , personalId , disabled , userLevel ,bookCnt,black,vip from users where name = #{name} and tel = #{tel}
+    </select>
+
+<!-- BlackList를 활성화 해주는 쿼리(set case when then else) 절을 이용해서 1이면 0, 0이면 1로 변경) -->
+    <update id="blackBtn">
+        update users
+        set black = case when black = 1 then 0 else 1 end
+        where username = #{name}
+    </update>
+
+<!-- VIP를 활성화 해주는 쿼리(set case when then else) 절을 이용해서 1이면 0, 0이면 1로 변경) -->
+    <update id="vipBtn">
+        update users
+        set vip = case when vip = 1 then 0 else 1 end
+        where username = #{name}
+    </update>
+
+<!-- 아이디 활성화를 해주는 쿼리(set case when then else) 절을 이용해서 1이면 0, 0이면 1로 변경) -->
+    <update id="ableBtn">
+        update users
+        set disabled = case when disabled = 1 then 0 else 1 end
+        where username = #{name}
+    </update>
+
+    <select id="checkOutAlarm" resultType="hotel.management.v1.manager.dto.ManagerDto$alarm">
+        select booker , booktel, roomno from booklist where TRUNC(checkout) = TRUNC(sysdate) and bookstatus = '체크인완료'
+    </select>
+
+    <update id="addBookCount">
+        UPDATE users
+        SET bookcnt = bookcnt + 1,
+            userlevel = CASE
+            WHEN bookcnt = 9 THEN 'SILVER'
+            WHEN bookcnt = 19 THEN 'GOLD'
+            ELSE userlevel
+            END
+        WHERE tel = #{tel}
+    </update>
+
+ 
+ <!-- 스칼라를 이용해 조건들을 비교해서 해당 값을 뽑아내는 쿼리 -->
+    <select id="bookSearch" resultType="hotel.management.v1.manager.dto.ManagerDto$findBookList">
+    select *
+    from (
+        select *
+                from (select *
+                    from (select *
+                         from (select * from bookList) 
+                            <where>
+                                 <if test="isStay == true and isRestaurant == false">
+                                    bookNo = rbBookNo
+                                 </if>
+                                 <if test="isStay == false and isRestaurant == true">
+                                    resNo is not null
+                                 </if>
+                                 <if test="isStay == true and isRestaurant == true">
+                                    bookNo = rbBookNo or resNo is not null
+                                 </if>
+                            </where>)
+                    <where>
+                        <if test="todayCheckBox == true">
+                            TRUNC(bookDate) = TRUNC(sysdate)
+                        </if>
+                        <if test="fromDate =='' and todayCheckBox == false">
+                            TRUNC(bookDate) = TRUNC(sysdate)
+                        </if>
+                        <if test="fromDate != '' and toDate == '' and todayCheckBox == false">
+                            bookdate = TO_DATE(#{fromDate}, 'YY/MM/DD')
+                        </if>
+                        <if test="fromDate != '' and toDate != '' and todayCheckBox == false">
+                            bookdate between TO_DATE(#{fromDate}, 'YY/MM/DD') and TO_DATE(#{toDate}, 'YY/MM/DD')
+                        </if>
+                    </where>)
+                 <where>
+                     <choose>
+                            <when test="listType==1"></when>
+                            <when test="listType==2">bookStatus = '체크인대기'</when>
+                            <when test="listType==3">bookStatus = '체크인완료'</when>
+                            <when test="listType==4">bookStatus = '체크아웃완료'</when>
+                            <when test="listType==5">breakfast = 1</when>
+                            <when test="listType==6">resno is not null</when>
+                     </choose>
+                    </where>
+                )
+    <where>
+            <if test="roomNum == 0 and name == ''">
+            </if>
+            <if test="roomNum != 0 and name == ''">
+                roomNo = #{roomNum}
+            </if>
+            <if test="roomNum == 0 and name != ''">
+                booker LIKE '%' || #{name} || '%'
+            </if>
+            <if test="roomNum != 0 and name != ''">
+                booker LIKE '%' || #{name} || '%' and roomNo = #{roomNum}
+            </if>
+    </where>
+    </select>
+</mapper>

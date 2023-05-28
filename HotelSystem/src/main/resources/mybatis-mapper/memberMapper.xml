@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hotel.management.v1.member.dao.MemberDao">
+	<!-- 회원가입 --> 
+	<insert id="save">
+		insert into users(username,name,tel,password,email,personalId,userLevel,role,black,vip)
+		values(#{username},#{name},#{tel},#{password},#{email},#{personalId},#{userLevel},#{role},0,0)
+	</insert>
+	
+	<!-- 아이디 존재 여부 확인 -->
+	<select id="existsByUsername" resultType="boolean">
+		select count(*) from users where username=#{username} 
+	</select>
+	
+	<!-- 이메일 존재 여부 확인 -->
+	<select id="existsByEmail" resultType="boolean">
+		select count(*) from users where email=#{email}
+	</select>
+	
+	<!--전화번호와 이메일 변경 --> 
+	<update id="update">
+		update users
+		<trim prefix="set" suffixOverrides=",">
+			<if test="email!=null">email = #{email},</if>
+			<if test="tel!=null">tel = #{tel},</if>
+		</trim>
+		where username=#{username} and rownum=1
+	</update>
+	
+	<!-- 비밀번호 변경 --> 
+	<update id="changePassword">
+		update users
+		<trim prefix="set" suffixOverrides=",">
+			<if test="newpassword!=null">password = #{newpassword},</if>
+		</trim>
+		where username=#{username} and rownum=1
+	</update>
+	
+	<!-- 비밀번호를 잘못입력해서 로그인 실패시 로그인실패횟수를 1씩 올린다 --> 
+	<update id="increaseLoginFailCnt">
+		update users
+		<trim prefix="set" suffixOverrides=",">
+			<if test="loginFailCount!=null">loginFailCount = loginFailCount + 1,</if>
+		</trim>
+		where username=#{username} and rownum=1
+	</update>
+	
+	<!-- 로그인실패횟수가 5가 되면 계정 비활성화 시킨다 --> 
+	<update id="disabled">
+		update users
+		<trim prefix="set" suffixOverrides=",">
+			<if test="disabled!=null">disabled = 1,</if>
+		</trim>
+		where username=#{username} and rownum=1
+	</update>
+	
+	<!-- 로그인에 성공하면 로그인 실패횟수를 초기화 시킨다 --> 
+	<update id="resetLoginCnt">
+		update users
+		<trim prefix="set" suffixOverrides=",">
+			<if test="loginFailCount!=null">loginFailCount = 0,</if>
+		</trim>
+		where username=#{username} and rownum=1
+	</update>
+	
+	<!-- 아이디 찾기 -->
+	<select id="findByEmail" resultType="hotel.management.v1.member.entity.Member">
+		select * from users where name=#{name} and email=#{email}
+	</select>
+	
+	<!-- 임시비밀번호 발급 -->
+	<select id="findByPassword" resultType="hotel.management.v1.member.entity.Member">
+		select * from users where name=#{name} and username=#{username} and email=#{email}
+	</select>
+	
+	<!-- 마이페이지에서 내정보를 출력시키기 위해 아이디를 찾는다 -->
+	<select id="findByUsername" resultType="hotel.management.v1.member.entity.Member">
+		select * from users where username=#{username}
+	</select>
+	
+	<!-- 회원탈퇴 -->
+	<delete id="delete">
+		delete from users where username=#{username}
+	</delete>
+	
+	
+</mapper>

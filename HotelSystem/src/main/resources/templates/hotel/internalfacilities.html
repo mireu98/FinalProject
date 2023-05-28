@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html  lang="ko" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" style="overflow-x: hidden;">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <script src="/js/Hotel.js"></script>
+  <script src="https://kit.fontawesome.com/7fe498c607.js" crossorigin="anonymous"></script>
+  <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=72764d4407eae4771ae834fbbe85f476"></script>
+  <link href='https://unpkg.com/css.gg@2.0.0/icons/css/youtube.css' rel='stylesheet'>
+  <link href='https://unpkg.com/css.gg@2.0.0/icons/css/instagram.css' rel='stylesheet'>
+  <link href='https://unpkg.com/css.gg@2.0.0/icons/css/facebook.css' rel='stylesheet'>
+  <link rel="stylesheet" href="/css/style.css">
+  <title>React Hotel</title>
+</head>
+<body>
+  <div th:replace="~{fragment/nav :: nav}"></div>
+     <div id="internalFacilities_page"> 
+      <div id= "aside"> 
+        <div id="inmenu">
+          <h3 id="tit">호텔소개</h3>
+            <ul id="menu">
+              <li id="internal_outline"><a href="/hotel/hotelintroduce" id="subh">개요</a></li><br> 
+              <li id="internal_outline1"><a href="/hotel/hotelstay" id="subh">React 스테이</a></li><br>
+              <li id="internal_outline1"><a href="/hotel/internalfacilities" id="subh">부대시설 소개</a></li>
+            </ul>  
+        </div>
+      </div>
+      <div id="internalFacilities_article">
+        <div id="headtit"> 
+          <h3>부대시설 소개</h3>
+          <div id="toolbar">
+            <i class="fa-solid fa-house"></i> > 호텔소개><a href="/hotel/internalfacilities" id="subh"> 부대시설 소개</a>
+          </div>
+        </div>
+        <div id="internalFacilities_tem">
+          <div id="internalFacilities_1">
+            <div>
+              <img src="/img/hotelMuseum.jpg" alt="호텔박물관" width="300vw" height="200vh">
+              <p id="internal_commonintro">&#60;호텔박물관&#62;</p>
+            </div>
+            <div>
+              <ul>
+                <li id="internal_common">
+                  <h5>호텔 및 관광산업의 역사와 발전,그리고 문화와 비전이 담긴 박물관</h5></li><br>
+                <li id="internal_common">근대 호텔의 전경 사진(대불, 손탁호텔), 손탁호텔에서 사용되었던 포크와 나이프, 1900년대 액상커피 용기, 1910년대 여행용 카메라와 가방, 호텔 엽서, 
+                  1938년 반도호텔 개관 브로슈어 및 반도호텔 재떨이, 성냥갑, 리플릿, 엽서 및 사진, 1945년 조선호텔의 메뉴판, 그리고 1950년대부터 오늘날까지의 호텔 발전사와 연관 있는 각 호텔별 개관 
+                  당시 사진과 관련 유물 등이 전시되어 있습니다</li>
+              </ul>
+            </div>
+          </div>
+          <div id="internalFacilities_1" class="mb-3 mt-3">
+            <div>
+              <img src="/img/fitnessCenter.jpg" alt="피트니스센터" width="300vw" height="200vh">
+              <p id="internal_commonintro">&#60;호텔피트니스센터&#62;</p>
+            </div>
+            <div>
+              <ul>
+                <li id="internal_common">
+                  <h5>활력 있는 생활을 추구하는 당신을 위한 맞춤 공간</h5></li><br>
+                <li id="internal_common"> React Hotel의 피트니스 센터는 PT Studio, GX Studio 등의 최신 시설을 갖추고 있습니다. 다양한 운동 프로그램을 통해 건강하고 즐거운 삶을 만들어 가세요.
+                  최신 3D 기구인 KINESIS Station, 인체 공학적 설계 및 첨단 기능을 갖춘 이태리 테크노 짐(Technogym)을 비롯해 90여 대의 최신 장비가 효과적인 운동법을 제안합니다.
+                  </li><br>
+                  <li id="internal_common">- 회원 및 호텔 투숙객만 이용 가능</li>
+              </ul>
+            </div>
+          </div>
+          <div id="internalFacilities_1" class="mb-3 mt-3">
+            <div>
+              <img src="/img/swimmingPool.jpg" alt="호텔수영장" width="300vw" height="200vh">
+              <p id="internal_commonintro">&#60;호텔수영장&#62;</p>
+            </div>
+            <div>
+              <ul> 
+                <li id="internal_common">
+                  <h5>인피니티 스파 풀로 365일 날씨에 맞게 적절한 온도의 온수풀</h5></li><br>
+                <li id="internal_common">React hotel의 수영장은 바다와 요트를 모티브로 한 현대적인 감각의 디자인으로 도심 속에서 여유와 활기를 느낄 수 있는 최적의 공간입니다.
+                  자동 여과 및 수질관리 시스템으로 최상의 수질을 자랑하며, 사계절 내내 쾌적함과 여유로움을 제공합니다. React hotel의 수영장과 자쿠지에서 즐거운 추억을 만들어 보세요.</li><br>
+                <li id="internal_common">- 회원 및 호텔 투숙객만 이용 가능</li>
+              </ul>
+            </div>
+          </div>
+          <div id="internalFacilities_1" class="mb-3 mt-3">
+            <div>
+              <img src="/img/drivingRange.jpg" alt="호텔골프장" width="300vw" height="200vh">
+              <p id="internal_commonintro">&#60;호텔골프장&#62;</p>
+            </div>
+            <div>
+              <ul>
+                <li id="internal_common">
+                  <h5>언제든지 가볍게 즐길 수 있는 자연 속 여유로운 골프 클럽</h5></li><br>
+                <li id="internal_common">빌딩 숲으로 날아가는 시원한 드라이버샷의 짜릿한 쾌감과 활력이 넘치는 공간, React hotel의 실내골프장에서 스트레스를 날려보세요.
+                  호텔 헬스장 시설 내 250여 평의 넓이에, 6개의 타석, 거리 35m, 자동 골프 서빙기, 골프클럽 등을 갖추었습니다.</li><br>
+                <li id="internal_common">- 회원 및 호텔 투숙객만 이용 가능</li>
+              </ul>
+            </div>
+          </div>
+          <div id="internalFacilities_1" class="mb-3 mt-3">
+            <div>
+              <img src="/img/weddingHall.jpg" alt="호텔웨딩홀" width="300vw" height="200vh">
+              <p id="internal_commonintro">&#60;호텔웨딩홀&#62;</p>
+            </div>
+            <div>
+              <ul>
+                <li id="internal_common">
+                  <h5>세련된 디자인과 창밖의 하늘정원이 한눈에 펼쳐지는 웨딩홀</h5></li><br>
+                  <li id="internal_common">
+                    세련된 디자인과 모던한 인테리어가 돋보이며 계절마다 변화되는 플라워 데코레이션은 격이 다른 웨딩을 연출합니다. 
+                    후정의 스카이가든에서 웨딩 피로연은 크리스탈 웨딩홀에서만 경험할 수 있어 더욱 특별한 웨딩을 선사해 드립니다.
+                  </li><br>
+                <li id="internal_common">- 회원 및 호텔 투숙객만 이용 가능</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!--  반응형 -->
+    <div id="internalFacilities_page-res"> 
+      <div id="internalFacilities_article-res">
+        <div id="headtit"> 
+          <h3>부대시설 소개</h3>
+          <div id="toolbar">
+            <i class="fa-solid fa-house"></i> > 호텔소개><a href="/hotel/internalfacilities" id="subh"> 부대시설 소개</a>
+          </div>
+        </div>
+        <div id="internalFacilities_tem-1">
+          <div id="internalFacilities_1">
+            <div>
+              <img src="/img/hotelMuseum.jpg" alt="호텔박물관" width="290vw" height="170vh">
+              <p id="internal_commonintro">&#60;호텔박물관&#62;</p>
+            </div>
+            <div id="internal_common-res">
+              <ul>
+                <li id="internal_common-1">
+                  <h6>호텔 및 관광산업의 역사와 발전,그리고 문화와 비전이 담긴 박물관</h6></li><br>
+                <li id="internal_common-1">근대 호텔의 전경 사진(대불, 손탁호텔), 손탁호텔에서 사용되었던 포크와 나이프, 1900년대 액상커피 용기, 1910년대 여행용 카메라와 가방, 호텔 엽서, 
+                  1938년 반도호텔 개관 브로슈어 및 반도호텔 재떨이, 성냥갑, 리플릿, 엽서 및 사진, 1945년 조선호텔의 메뉴판, 그리고 1950년대부터 오늘날까지의 호텔 발전사와 연관 있는 각 호텔별 개관 
+                  당시 사진과 관련 유물 등이 전시되어 있습니다</li>
+              </ul>
+            </div>
+          </div>
+          <div id="internalFacilities_1" class="mb-3 mt-3">
+            <div>
+              <img src="/img/fitnessCenter.jpg" alt="피트니스센터" width="290vw" height="170vh">
+              <p id="internal_commonintro">&#60;호텔피트니스센터&#62;</p>
+            </div>
+            <div id="internal_common-res">
+              <ul>
+                <li id="internal_common-1">
+                  <h6>활력 있는 생활을 추구하는 당신을 위한 맞춤 공간</h6></li><br>
+                <li id="internal_common-1"> React Hotel의 피트니스 센터는 PT Studio, GX Studio 등의 최신 시설을 갖추고 있습니다. 다양한 운동 프로그램을 통해 건강하고 즐거운 삶을 만들어 가세요.
+                  최신 3D 기구인 KINESIS Station, 인체 공학적 설계 및 첨단 기능을 갖춘 이태리 테크노 짐(Technogym)을 비롯해 90여 대의 최신 장비가 효과적인 운동법을 제안합니다.
+                  </li><br>
+                  <li id="internal_common-1">- 회원 및 호텔 투숙객만 이용 가능</li>
+              </ul>
+            </div>
+          </div>
+          <div id="internalFacilities_1" class="mb-3 mt-3">
+            <div>
+              <img src="/img/swimmingPool.jpg" alt="호텔수영장" width="290vw" height="170vh">
+              <p id="internal_commonintro">&#60;호텔수영장&#62;</p>
+            </div>
+            <div id="internal_common-res">
+              <ul> 
+                <li id="internal_common-1">
+                  <h6>인피니티 스파 풀로 365일 날씨에 맞게 적절한 온도의 온수풀</h6></li><br>
+                <li id="internal_common-1">React hotel의 수영장은 바다와 요트를 모티브로 한 현대적인 감각의 디자인으로 도심 속에서 여유와 활기를 느낄 수 있는 최적의 공간입니다.
+                  자동 여과 및 수질관리 시스템으로 최상의 수질을 자랑하며, 사계절 내내 쾌적함과 여유로움을 제공합니다. React hotel의 수영장과 자쿠지에서 즐거운 추억을 만들어 보세요.</li><br>
+                <li id="internal_common-1">- 회원 및 호텔 투숙객만 이용 가능</li>
+              </ul>
+            </div>
+          </div>
+          <div id="internalFacilities_1" class="mb-3 mt-3">
+            <div>
+              <img src="/img/drivingRange.jpg" alt="호텔골프장" width="290vw" height="170vh">
+              <p id="internal_commonintro">&#60;호텔골프장&#62;</p>
+            </div>
+            <div id="internal_common-res">
+              <ul>
+                <li id="internal_common-1">
+                  <h6>언제든지 가볍게 즐길 수 있는 자연 속 여유로운 골프 클럽</h6></li><br>
+                <li id="internal_common-1">빌딩 숲으로 날아가는 시원한 드라이버샷의 짜릿한 쾌감과 활력이 넘치는 공간, React hotel의 실내골프장에서 스트레스를 날려보세요.
+                  호텔 헬스장 시설 내 250여 평의 넓이에, 6개의 타석, 거리 35m, 자동 골프 서빙기, 골프클럽 등을 갖추었습니다.</li><br>
+                <li id="internal_common-1">- 회원 및 호텔 투숙객만 이용 가능</li>
+              </ul>
+            </div>
+          </div>
+          <div id="internalFacilities_1" class="mb-3 mt-3">
+            <div>
+              <img src="/img/weddingHall.jpg" alt="호텔웨딩홀" width="290vw" height="170vh">
+              <p id="internal_commonintro">&#60;호텔웨딩홀&#62;</p>
+            </div>
+            <div id="internal_common-res">
+              <ul>
+                <li id="internal_common-1">
+                  <h6>세련된 디자인과 창밖의 하늘정원이 한눈에 펼쳐지는 웨딩홀</h6></li><br>
+                  <li id="internal_common-1">
+                    세련된 디자인과 모던한 인테리어가 돋보이며 계절마다 변화되는 플라워 데코레이션은 격이 다른 웨딩을 연출합니다. 
+                    후정의 스카이가든에서 웨딩 피로연은 크리스탈 웨딩홀에서만 경험할 수 있어 더욱 특별한 웨딩을 선사해 드립니다.
+                  </li><br>
+                <li id="internal_common-1">- 회원 및 호텔 투숙객만 이용 가능</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--풋터-->
+    <div th:replace="~{fragment/footer :: footer}"></div>
+  </body>
+</html>

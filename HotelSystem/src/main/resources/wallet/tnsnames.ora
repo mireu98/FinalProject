@@ -1,0 +1,8 @@
+finalproject_high = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.ap-seoul-1.oraclecloud.com))(connect_data=(service_name=g6a1bbe6bd2c7a7_finalproject_high.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
+
+finalproject_low = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.ap-seoul-1.oraclecloud.com))(connect_data=(service_name=g6a1bbe6bd2c7a7_finalproject_low.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
+
+finalproject_medium = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.ap-seoul-1.oraclecloud.com))(connect_data=(service_name=g6a1bbe6bd2c7a7_finalproject_medium.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
+
+
+

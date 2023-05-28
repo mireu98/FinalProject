@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+  <head>
+    <meta charset="UTF-8" />
+    <title>J.H.H.L</title>
+  </head>
+  <body>
+    <span th:fragment="footer" id="footer">
+    <div id="footer">
+      <div id="footerLogo">
+        <img src="/img/LOGO(1)-B.png" alt="로꼬" width="200vw;" id = "logo-footer"/>
+      </div>
+      <div id="footerInfo">
+        <div id="footerInfo_contact">
+          <span id="contact1_span">㈜ React Hotel 인천광역시 학익동 주혁로 228</span>
+          <span id="contact2_span">대표이사 : 박주혁 </span>
+          <span id="contact3_span">사업자등록번호 001-987654-32123 통신판매신고번호 미추홀구 401호</span>
+        </div>
+        <div id="footerInfo_under">
+          <div id="footerInfo_address">
+            <span id="address_span">연락처 : 032-1234-5678</span>
+            <a href="/hotel/howtocome" id="address_a"><span id="address_guide">[오시는길] </span></a>
+          </div>
+          <div id="footerInfo_report">
+            <a href="/hotel/board/list" id="address_a"><span id="address_guide">[문의하기] </span></a>
+          </div>
+          <div id="footerInfo_footercontact">
+            <a href="/hotel/contact" id="address_a"><span id="address_guide">[연락처] </span></a>
+          </div>
+          <div id="snssection">
+            SNS
+            <div id="snsicon">
+              <a href="https://www.youtube.com/@user-hl6ze9zx5w/videos"><i class="gg-youtube" id="you"></i></a>
+              <a href="https://www.instagram.com/iciacokr/?hl=ko"><i class="gg-instagram" id="insta"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--챗봇-->
+    <script>
+      (function () {
+        var w = window;
+        if (w.ChannelIO) {
+          return w.console.error("ChannelIO script included twice.");
+        }
+        var ch = function () {
+          ch.c(arguments);
+        };
+        ch.q = [];
+        ch.c = function (args) {
+          ch.q.push(args);
+        };
+        w.ChannelIO = ch;
+        function l() {
+          if (w.ChannelIOInitialized) {
+            return;
+          }
+          w.ChannelIOInitialized = true;
+          var s = document.createElement("script");
+          s.type = "text/javascript";
+          s.async = true;
+          s.src = "https://cdn.channel.io/plugin/ch-plugin-web.js";
+          var x = document.getElementsByTagName("script")[0];
+          if (x.parentNode) {
+            x.parentNode.insertBefore(s, x);
+          }
+        }
+        if (document.readyState === "complete") {
+          l();
+        } else {
+          w.addEventListener("DOMContentLoaded", l);
+          w.addEventListener("load", l);
+        }
+      })();
+
+      ChannelIO("boot", {
+        pluginKey: "043a6ec0-4e97-4202-9a3f-3c9f2bc1ba36",
+      });
+    </script>
+    </span>
+  </body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html  lang="ko" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" style="overflow-x: hidden;">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <script src="/js/Hotel.js"></script>
+  <script src="/js/join.js"></script>
+  <script src="https://kit.fontawesome.com/7fe498c607.js" crossorigin="anonymous"></script>
+  <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=72764d4407eae4771ae834fbbe85f476"></script>
+  <link href='https://unpkg.com/css.gg@2.0.0/icons/css/youtube.css' rel='stylesheet'>
+  <link href='https://unpkg.com/css.gg@2.0.0/icons/css/instagram.css' rel='stylesheet'>
+  <link href='https://unpkg.com/css.gg@2.0.0/icons/css/facebook.css' rel='stylesheet'>
+  <link rel="stylesheet" href="/css/style.css">
+  <title>React Hotel</title>
+</head>
+<body>
+<div th:replace="~{fragment/nav :: nav}"></div>
+     <div id="reservationCompletePage"> 
+      <div id="reservationCompleteArticle">
+        <div id="headtit"> 
+          <h3>예약완료</h3>
+        <div id="jointool">
+          <i class="fa-solid fa-house"></i> ><a href="/hotel/member/reservationcomplete" id="subh"> 예약완료</a>
+        </div>
+        </div>
+       	<div id="joincompletebox">
+       		<div id="joincompletebox1">
+	       			<span style="color: #cebda5;">감사합니다.</span>
+       				<span>React Hotel에 정상적으로 예약이 완료되었습니다.</span>
+       		</div>
+       		<div id="joincompletebox2">
+       			<img alt="호텔이미지" src="/img/mainhotel.jpg" style="width: 40vw; height:29.8vh; margin-left: 4.4vw;">
+       		</div>
+       		<div id="joincompletebox3">
+       			<div id="joincompletebox3_1">
+       				<div style="height:11.7vh; line-height:11.7vh;"><span>React Hotel에 예약해주신 것을 진심으로 감사합니다.</span></div>
+       				<div style="height:11.7vh; line-height:11.7vh;"><span>자세한 사항은 마이페이지 > 예약·확인에서 확인하시기 바랍니다.</span></div>
+       			</div>
+       		</div>
+       		<form action="/hotel/member/reservationcomplete" method="get">
+	       		<div>
+	       			<button id="reservationbut">예약 · 확인하러가기</button>
+	       		</div>
+       		</form>
+       	</div>
+      </div>
+    </div>
+    
+    <!-- 반응형 -->
+    <div id="joincompletepage-res"> 
+      <div id="joincompletearticle-res">
+        <div id="headtit"> 
+          <h3>회원가입</h3>
+        <div id="jointool">
+          <i class="fa-solid fa-house"></i> ><a href="/hotel/member/join" id="subh"> 가입완료</a>
+        </div>
+        </div>
+       	<div id="joincompletebox">
+       		<div id="joincompletebox1-res">
+	       			<span style="color: #cebda5;">감사합니다.</span>
+       				<span>React Hotel에 정상적으로 예약이 완료되었습니다.</span>
+       		</div>
+
+       		<div id="joincompletebox3-res">
+       			<div id="joincompletebox3_1-res">
+       				<div style="height:11.7vh; line-height:11.7vh;"><span>React Hotel에 예약해주신 것을 진심으로 감사합니다.</span></div>
+       				<div style="height:11.7vh; line-height:11.7vh;"><span>자세한 사항은 마이페이지 > 예약·확인에서 확인하시기 바랍니다.</span></div>
+       			</div>
+       		</div>
+       		<form action="/hotel/member/main" method="get">
+	       		<div>
+	       			<button id="todologin-res">홈페이지로 가기</button>
+	       		</div>
+       		</form>
+       	</div>
+      </div>
+    </div>
+    
+    <!-- footer -->
+	<div th:replace="~{fragment/footer :: footer}"></div>
+</body>
+</html>

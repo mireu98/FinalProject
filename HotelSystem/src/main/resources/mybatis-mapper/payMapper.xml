@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hotel.management.v1.pay.dao.PayDao">
+	<update id="kakaobookadd"> update payment set tid = #{tid}, item_name =#{itemname},
+		partner_order_id=#{orderid},total_amount = #{amount} , paytype = #{type} where bookno
+		=(select max(b.bookno) from book b,payment p where b.bookno = p.bookno) </update>
+	<update id="paymenttoss"> update payment set tid = #{tid}, item_name =#{itemname},
+		partner_order_id=#{orderid},total_amount = #{amount} , paytype = #{type} where bookno
+		=(select max(b.bookno) from book b,payment p where b.bookno = p.bookno) </update>
+	<update id="mangeradd"> update payment set paytype = #{paytype},item_name =#{gradename} where
+		bookno = (select max(b.bookno) from book b,payment p where b.bookno = p.bookno) </update>
+
+	<select id="findPaymentByBookno" resultType="hotel.management.v1.pay.dto.PayDto$payment"> select
+		p.tid,p.partner_order_id,p.total_amount,p.bookno, p.orderno from payment p <trim
+			prefix="where"
+			suffixOverrides=",">
+			<if test="bookno!=null">p.bookno = #{bookno},</if>
+			<if test="orderno!=null">p.orderno =
+		#{orderno},</if>
+		</trim>
+	</select>
+	<select id="findbookByBookno" resultType="hotel.management.v1.client.book.dto.BookDto$checkbook">
+		select b.bookno,rb.bookno as roombookno,d.resno as resno from book b left join roombooking
+		rb on b.bookno = rb.bookno left join roombooking rb on b.bookno = rb.bookno LEFT join dinner
+		d on b.bookno = d.resno where b.bookno = #{bookno} </select>
+	<delete id="deletepayment"> delete payment <trim prefix="where" suffixOverrides=",">
+			<if test="bookno!=null">bookno = #{bookno},</if>
+			<if test="orderno!=null">orderno =
+		#{orderno},</if>
+		</trim>
+	</delete>
+
+	<delete id="deletedinner"> delete dinner where resno = #{bookno} </delete>
+	<delete id="deleteroombooking"> delete roombooking where bookno = #{bookno} </delete>
+	<delete id="deletebook"> delete book where bookno = #{bookno} </delete>
+
+	<delete id="findAndCancelOrder"> delete orders where orderno=#{orderno}</delete>
+</mapper>

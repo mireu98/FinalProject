@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      style="overflow-x: hidden;">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script src="/js/Hotel.js"></script>
+    <script src="/js/roombook.js"></script>
+    <script src="https://kit.fontawesome.com/7fe498c607.js" crossorigin="anonymous"></script>
+    <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=72764d4407eae4771ae834fbbe85f476"></script>
+    <link href='https://unpkg.com/css.gg@2.0.0/icons/css/youtube.css' rel='stylesheet'>
+    <link href='https://unpkg.com/css.gg@2.0.0/icons/css/instagram.css' rel='stylesheet'>
+    <link href='https://unpkg.com/css.gg@2.0.0/icons/css/facebook.css' rel='stylesheet'>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/bookStyle.css">
+    <title>React Hotel</title>
+</head>
+
+<body>
+<input type="hidden" id = "booktokken" name="_csrf" th:value="${_csrf.token}">
+<div th:replace="~{fragment/nav :: nav}"></div>
+<div id="mybookPage_page">
+
+    <!-- aside -->
+    <div id="mybookPageaside">
+        <div id="myPageinmenu">
+            <h3 id="tit">마이페이지</h3>
+            <ul id="myPagemenu">
+                <li id="internal_outline"><a href="/hotel/member/myPage" id="subh">나의 등급</a></li>
+                <hr>
+                <li id="internal_outline1"><a href="/hotel/member/reservation" id="subh">예약·주문 확인</a>
+                    <ul style="list-style: none;">
+                        <li class="mb-1.5" id="internal_outline1"><a href="/hotel/client/myroombook" id="subh"
+                                                                     style="margin-left: -1.7vw; font-size: 0.8em;">객실</a>
+                        </li>
+                        <li id="internal_outline1"><a href="/hotel/client/mydinnerbook" id="subh"
+                                                      style="margin-left: -1.7vw; font-size: 0.8em;">다이닝</a></li>
+                        <li id="internal_outline1"><a href="/hotel/mall/orderList" id="subh"
+                                                      style="margin-left: -1.7vw; font-size: 0.8em;">주문내역</a></li>
+                    </ul>
+                </li>
+                <hr>
+                <li id="internal_outline1"><span id="subh">내정보</span>
+                    <ul style="list-style: none;">
+                        <li class="mb-1.5" id="internal_outline1"><a href="/hotel/member/profileupdate" id="subh"
+                                                                     style="margin-left: -1.7vw; font-size: 0.8em;">프로필
+                            수정</a></li>
+                        <li id="internal_outline1"><a href="/hotel/member/changepassword" id="subh"
+                                                      style="margin-left: -1.7vw; font-size: 0.8em;">비밀번호 변경</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="mybookPage_article">
+        <div id="headtit">
+            <h3>객실</h3>
+            <div id="myPagetool">
+                <i class="fa-solid fa-house"></i> > 마이페이지 ><a href="myPage" id="subh">객실</a>
+            </div>
+        </div>
+        <div id="roomlistdiv">
+            <div id="mybooktablediv">
+                <table id="mybooktable" class="table ">
+
+                    <thead>
+                    <tr>
+                        <th>체크인날짜</th>
+                        <th>체크아웃날짜</th>
+                        <th>방등급</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody id="mybookpagetbody">
+                    <tr th:each="l : ${list}">
+                        <td th:text="${l.checkin}"></td>
+                        <td th:text="${l.checkout}"></td>
+                        <td th:text="${l.bookroomgrade}"></td>
+                            <td><input type="hidden" th:value = "${l.bookno}" id = "mybooklistbookno"><button class ="btn btn-outline-secondary" id = "deletebookbtn">X</button>
+                        </td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!--풋터-->
+<div th:replace="~{fragment/footer :: footer}"></div>
+</body>
+
+</html>

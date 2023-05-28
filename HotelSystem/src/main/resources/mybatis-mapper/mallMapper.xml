@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hotel.management.v1.mall.dao.OrderDao">
+	<insert id="addOrder"> INSERT INTO orders VALUES
+		(ORDERS_SEQ_ORDERSNO.nextval,#{username},(select itemno from item where itemname =
+		#{itemName})) </insert>
+	<insert id="addOrderDetail"> INSERT INTO orderdetail VALUES (ORDERS_SEQ_ORDERSNO.currval,
+		sysdate, to_date(#{pickupDay},'MM/DD/YYYY'), #{price}, #{orderEA}) </insert>
+	<select id="findAllOrder" resultType="hotel.management.v1.mall.dto.OrdersDto$OrderList"> select
+		o.orderno,i.itemname,od.orderdate, od.orderEA from (orders o join item i on o.itemno =
+		i.itemno) join orderdetail od on od.orderno = o.orderno where o.username=#{username} order
+		by orderno desc </select>
+	<select id="findByOrderNo" resultType="hotel.management.v1.mall.dto.OrdersDto$OrderDetail">
+		select i.itemimage, o.orderno, i.itemname, od.orderea, od.orderprice, od.orderdate,
+		od.contactdate as pickupDay from orders o, orderdetail od, item i where o.orderno=od.orderno
+		and o.itemno=i.itemno and od.orderno=#{orderNo} </select>
+	<delete id="orderDetailDelete"> delete from orderdetail where orderno=#{orderNo} </delete>
+	<update id="minusEA"> update item i set i.itemea = i.itemea-#{orderEA} where
+		itemname=#{itemName} </update>
+	<update id="plusEA"> 
+		update item i set i.itemea = i.itemea+#{orderEA} where itemname=#{itemName} 
+	</update>
+	<update id="orderPay"> 
+		update payment set tid=#{tid}, partner_order_id=#{orderId},
+		item_name=#{itemName}, total_amount=#{price}, paytype=#{payType} where orderno =(select
+		max(o.orderno) from orders o, payment p where o.orderno=p.orderno) 
+	</update>
+	<select id="findByItemNo" resultType="hotel.management.v1.mall.dto.OrdersDto$Items"> 
+		select i.itemea, i.itemno from item i order by i.itemno
+	</select>
+</mapper>

@@ -1,0 +1,537 @@
+
+#paybookbtn {
+    cursor: pointer;
+}
+
+.bookpage {
+    margin-left: 20%
+}
+
+#reservation-btn {
+    cursor: pointer;
+}
+
+#roomimg {
+    width: 20vw;
+    height: 20vh;
+}
+
+#roomlist {
+    display: flex;
+    padding: 0 5vw;
+}
+
+#roomlistimg {
+    flex: 1;
+}
+
+#roomlistinfo {
+    line-height: 20vh;
+    flex: 1;
+}
+
+#roomlistbtn {
+    line-height: 20vh;
+    flex: 1;
+}
+
+#booklistbtn {
+    cursor: pointer;
+}
+
+#payarea {
+    width: 40vw;
+    display: flex;
+    float: right;
+    margin-bottom: 1.5vh
+}
+
+#userlevelinfo {
+    flex: 1;
+    line-height: 5vh;
+}
+
+#roomnameinfo {
+    flex: 1;
+    line-height: 5vh;
+}
+
+#roomtotalpayinfo {
+    flex: 1;
+    line-height: 5vh;
+}
+
+#paybtninfo {
+    flex: 1;
+    margin-right: 7vw;
+    margin-left: 2vw;
+}
+
+.chekboox {
+    position: relative;
+    top: 10px;
+    margin: 0 0;
+}
+
+#bookpage {
+    overflow: hidden;
+    background-color: white;
+    width: 100%;
+    min-height: 71vh;
+    padding-top: 8vh;
+}
+
+#dinnerbook {
+    cursor: pointer;
+}
+
+#bookpeople {
+    width: 3vw;
+}
+
+#booker, #booktel {
+    text-align: right;
+}
+
+#myroomlisttable {
+    min-height: 140vh;
+}
+
+#mybookPageaside {
+    width: 15vw;
+    height: 40vh;
+    background-color: #f1e3c4;
+    float: left;
+    position: absolute;
+    left: 15vw;
+    top: 10vh;
+}
+
+#mybookPage_article {
+    height: 50vh;
+    width: 50vw;
+    position: absolute;
+    left: 35vw;
+    margin-top: 10vh;
+    overflow: hidden;
+}
+
+#dinnerbookmain {
+    width: 49vw;
+    height: 120vh;
+    margin-top: 4vh;
+}
+
+#mybookPage_page {
+    height: 70.9vh;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+#inputdiv * {
+    margin-left: 10px;
+}
+
+#reservation-hotelinfo * {
+    margin-left: 10px;
+}
+
+.orderDetail {
+    height: 699px;
+}
+
+.orderDetail-page {
+    height: 618px;
+}
+
+.detail-title {
+    text-align: center;
+    font-size: 30px
+}
+
+.detailOrder {
+    position: relative;
+    top: 10px;
+}
+
+.orderDetail-title {
+    height: 50px;
+    border-bottom: 1px solid #D8D8D8;
+    text-align: center;
+
+}
+
+#bookdetail * {
+    height: 30px
+}
+
+#bookdetail td * {
+    margin-left: 30px;
+}
+
+#bookDetail-footer {
+    background-color: #f1e3c4;
+    width: 100%;
+    height: 80px;
+
+}
+
+#booker {
+    width: 65px;
+}
+
+#username {
+    width: 100px;
+}
+
+#mybooktable tbody * {
+    margin: 0 10px;
+}
+
+#mybooktable td, #mybooktable th {
+    width: 12.5vw;
+}
+
+#mybooktable thead {
+    display: block;
+    background: #f1e3c4;
+}
+
+#tabletitel {
+    background-color: #f1e3c4;
+    margin: 5px 0;
+    border-bottom: 2px solid #7a7a7a;
+}
+
+#mybooktable tbody {
+    max-height: 62vh;
+    display: block;
+    overflow: auto;
+}
+
+#roomlistinputarea {
+    height: 6vh;
+    padding: 1.5vh;
+}
+
+#mybookpagetbody {
+    height:62vh;
+    overflow-y: scroll;
+}
+
+.bookDetail-logo img {
+    width: 100px;
+    height: 80px;
+}
+
+#mydinnerapge_page {
+    width: 100%;
+    height: 70.9vh;
+    background-color: white;
+    overflow: hidden;
+    margin: 0 auto;
+    padding: 0 0;
+}
+
+#mypage_dinnerbook {
+    width: 50vw;
+    position: relative;
+    left: 35vw;
+    margin-top: 10vh;
+    overflow: hidden;
+}
+
+#mallPaymentBtn {
+    cursor: pointer;
+}
+ .dark-mode #bookpage{
+    background-color: rgb(20,20,20);
+}
+ .dark-mode #mybookPage_page{
+     background-color: rgb(20,20,20);
+
+ }
+ .dark-mode #mybookPageaside{
+     background-color: #212529;
+ }
+ .dark-mode #mybooktable thead{
+     background-color: #212529;
+     color: white;
+     }
+.dark-mode #mybooktable tbody{
+    background-color: rgb(20,20,20);
+
+    color: white;
+}
+.dark-mode #dinnerbookmain #mybooktable thead th{
+    border-bottom: none;
+}
+.dark-mode #dinnerbookmain #mybooktable thead th{
+    border-bottom: none;
+}
+.dark-mode #mydinnerapge_page{
+    background-color: rgb(20,20,20);
+
+}
+#paymentPopup {
+    width: 100vw;
+    height: 100vh;
+    background-color: gray;
+    opacity: 0.7;
+    position: fixed;
+    bottom: 0.01vh;
+    right: 0.01vw;
+    z-index: 999;
+}
+
+#paymentPopup-box {
+    width: 40vw;
+    height: 29vh;
+    background-color: white;
+    position: fixed;
+    left: 30vw;
+    top: 33vh;
+    opacity: 1;
+    margin: auto;
+    z-index: 999;
+}
+.dark-mode #headtit{
+    background-color: #212529;
+    border-bottom: 1px solid #DBDBDB;
+    border-top: 1px solid #DBDBDB;
+}
+#paymentPopup-headerbar {
+    height: 8vh;
+    background-color: #cccccc;
+}
+
+#paymentPopup-headerbar > span {
+    position: absolute;
+    left: 1vw;
+    bottom: 23vh;
+    font-size: 20px;
+}
+
+#paymentPopup-cancle {
+    margin: 0;
+    position: relative;
+    left: 37.5vw;
+    top: 1.5vh;
+    width: 3vw;
+    height: 3vh;
+}
+
+#paymentPopup-cancle > a {
+    text-decoration: none;
+    color: black;
+}
+
+#paymentPopup-canclex {
+    color: #ffffff
+}
+
+#paymentPopup-btn > span {
+    font-size: 30px;
+}
+#roomlistdiv{
+    margin-top: 4vh;
+    width: 49vw;
+}
+#choosePayment {
+    display: flex;
+    width: 40vw;
+    height: 24vh;
+    background-color: white;
+}
+
+#kakaopay-payment {
+    position: absolute;
+    top: 1.5vh;
+    left: 4.1vw;
+}
+
+#toss-payment {
+    position: absolute;
+    top: 1.5vh;
+    left: 4.1vw;
+}
+
+#choosePayment-box1 {
+    cursor: pointer;
+    width: 15vw;
+    height: 10vh;
+    border: 3px solid #eaeaea;
+    position: absolute;
+    left: 4.6vw;
+    top: 15vh;
+}
+
+#choosePayment-box2 {
+    cursor: pointer;
+    width: 15vw;
+    height: 10vh;
+    border: 3px solid #eaeaea;
+    position: absolute;
+    left: 20.4vw;
+    top: 15vh;
+}
+
+#choosePayment-box1:hover {
+    border: 3px solid #856f56;
+}
+
+#choosePayment-box2:hover {
+    border: 3px solid #856f56;
+}
+
+/* 700이하 보일곳*/
+@media screen and (min-width: 701px) {
+
+}
+
+/* 700이상 보일곳*/
+@media screen and (max-width: 700px) {
+    #bookpage{
+        margin: 0;
+        padding-top: 0.5vh;
+    }
+    #headtit {
+        display: inline-block;
+        left: 0vw;
+        width:100%;
+        border:0;
+        background-color: #9e774c;
+    }
+    #mybookPageaside {
+        display: none;
+    }
+    #roomlist{
+        padding: 0 1.1vw;
+    }
+    #roomimg{
+        width: 20vw;
+        height: 12vh;
+        margin: 5vh auto;
+    }
+    #myPagetool{
+        display: none;
+
+    }
+    #mybookPage_article {
+        width: 100%;
+        left: 0;
+        margin-top: 0;
+        height: 66vh;
+    }
+    #headtit > h3{
+        color: white;
+        text-align: center;
+        margin-top: 4px;
+    }
+    #mybooktable td, #mybooktable th {
+        width: auto;
+
+    }
+    #dinnerbookmain{
+        width: 100%;
+        height: 67vh;
+        margin: 0;
+    }
+    #myPageaside {
+        display: none;
+    }
+
+    #mybooktable {
+        width: 100vw;
+        margin: auto;
+    }
+
+    #roomlistinputarea {
+
+        display: none;
+    }
+
+    #mypage_dinnerbook {
+        width: 100%;
+        left: 0;
+        margin-top: 0;
+    }
+
+    .reservation-site {
+        display: inline;
+    }
+
+    #bookhr {
+        display: none;
+    }
+    #roomlistdiv{
+        margin:0;
+        width: 100%;
+    }
+    #reservation-btn {
+        top : -30px;
+    }
+    #inputdiv *{
+        display: inline-block;
+    }
+    #inputdiv{
+        width: 100%;
+    }
+    #payarea{
+        width: 100%;
+        margin-top:1vh;
+        display: block;
+    }
+    #paymentPopup-box{
+        width: 65vw;
+        left: 15vw;
+    }
+    #paymentPopup-cancle{
+        left: 59.4vw;
+    }
+    #choosePayment{
+        width: 65vw;}
+    #choosePayment-box1{
+        width: 24vw;
+    }
+    #kakaopay-payment{
+        left: 2.9vw;
+    }
+
+    #choosePayment-box2{
+        width: 24vw;
+        left: 36vw;
+    }
+    #toss-payment{
+        left: 3.1vw;
+    }
+    #inputdiv *{
+        display: block;
+        text-align: center;
+        margin: 0 auto;
+    }
+    #bookformbox{
+        height: 65.4vh;
+    }
+    #roomlistimg{
+        display: none;
+    }
+
+    #paybtninfo{
+        margin: 0 auto;
+    }
+    #reservation-hotelinfo * {
+        display: block;
+        margin: 0.5vh auto;
+    }
+    #reservation-hotelinfo{
+        height: auto;
+        margin-bottom: 2.5vh;
+    }
+    #mybooktable tbody tr td{
+    line-height: 4vh;
+}
+}
+
+

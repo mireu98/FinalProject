@@ -1,0 +1,677 @@
+/* 명품관 */
+#luxury_page {
+  width: 100%;
+  height: 100%;
+  min-height: 180vh;
+  background-color: white;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+#logo-footer {
+  position: relative;
+  top: 8vh;
+}
+#luxuryarticle {
+  width: 50vw;
+  position: absolute;
+  left: 35vw;
+  margin-top: 10vh;
+}
+
+#luxuryarticle.add {
+  margin-top: 20vh;
+}
+
+#mall-aside {
+  width: 15%;
+  height: 25vh;
+  background-color: #f1e3c4;
+  float: left;
+  position: absolute;
+  left: 15vw;
+  top: 24vh;
+}
+
+#luxurytem ul li {
+  list-style: none;
+  display: inline-block;
+  margin-right: 2vw;
+  margin-bottom: 6vh;
+  text-align: left;
+}
+
+#luxurytem ul li a {
+  text-decoration: none;
+}
+
+#luxurytem ul {
+  padding: 0;
+}
+
+.itemName {
+  color: black;
+  font-size: 24px;
+}
+
+.itemPrice {
+  color: black;
+}
+
+.item-btn {
+  cursor: pointer;
+  position: relative;
+  left: 9.4vw;
+  bottom: 2vh;
+}
+
+.item-dis-btn {
+  position: relative;
+  left: 9.4vw;
+  bottom: 1.8vh;
+}
+
+.item-dis-btn1 {
+  position: relative;
+  left: 10.1vw;
+  bottom: 1.8vh;
+}
+.item-dis-btn2 {
+  position: relative;
+  left: 10.6vw;
+  bottom: 1.8vh;
+}
+
+.item-dis-btn-1 {
+  position: relative;
+  left: 48.8vw;
+  bottom: 1.8vh;
+}
+.item-dis-btn-2 {
+  position: relative;
+  left: 50.8vw;
+  bottom: 1.8vh;
+}
+.item-dis-btn-3 {
+  position: relative;
+  left: 52vw;
+  bottom: 1.8vh;
+}
+.item-btn1 {
+  cursor: pointer;
+  position: relative;
+  left: 10.1vw;
+  bottom: 2vh;
+}
+.item-btn2 {
+  cursor: pointer;
+  position: relative;
+  left: 10.6vw;
+  bottom: 2vh;
+}
+
+#chargeInquiry {
+  background: url("/img/btn_estcharge_toggle2.png") 0 0 no-repeat;
+  width: 3vw;
+  height: 3.3vh;
+  background-position: 0 -32px;
+  position: relative;
+  bottom: 1.7vh;
+  left: 0.6vw;
+  z-index: 3;
+  margin: auto;
+  display: block;
+}
+
+#chargeInquiry.fix {
+  position: fixed;
+  z-index: 3;
+  top: -77.5vh;
+  left: 49.1%;
+}
+
+#chargeInquiry.click {
+  position: fixed;
+  z-index: 3;
+  bottom: 88vh;
+  left: 49vw;
+}
+
+#totalCharge {
+  border-bottom: 4px solid #856f56;
+  width: 100%;
+  height: 10.5vh;
+  background: white;
+  position: relative;
+  z-index: 1;
+}
+
+#totalCharge.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  margin-right: 10vw;
+}
+
+#totalChargeInner {
+  width: 80vw;
+  height: 10.5vh;
+  margin: 0 auto;
+}
+
+#totalBill {
+  width: 71.2vw;
+  height: 10.5vh;
+  padding: 24px 0;
+}
+
+#totalBill.fix2 {
+  position: fixed;
+  top: -0.5vh;
+  left: 10.04vw;
+}
+
+#totalBox {
+  border-left: 1px solid #d8d8d8;
+  float: right;
+  width: 30vw;
+  height: 6vh;
+  margin-right: 1.3vw;
+}
+
+#totalText {
+  float: left;
+  width: 18vw;
+  height: 3vh;
+}
+
+#VAT {
+  width: 8vw;
+  float: left;
+  padding-top: 1vh;
+  margin: 0;
+  padding-left: 1vw;
+}
+
+#totalText span {
+  font-size: 15px;
+  font-weight: bold;
+  color: #362311;
+}
+
+#totalText p {
+  font-size: 8px;
+  margin: 0 auto;
+  color: #a4a4a4;
+}
+
+#totalPriceBox {
+  float: right;
+  color: #362311;
+  width: 10vw;
+  float: right;
+  text-align: right;
+  margin-top: 1.5vh;
+}
+
+#totalButton {
+  float: right;
+  width: 10vw;
+  height: 5vh;
+  text-align: center;
+}
+
+#totalBillDetailInner {
+  overflow: hidden;
+  transition: height 0.5s ease-in-out;
+  z-index: 2;
+  position: absolute;
+  left: -0.01vw;
+  background-color: white;
+}
+
+.totalBillDetail-collapsed {
+  transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  height: 0vh;
+  z-index: 2;
+  width: 100vw;
+}
+
+.totalBillDetail-expanded {
+  height: 55vh;
+  transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  width: 100vw;
+  z-index: 2;
+  display: block;
+  border-bottom: 4px solid #856f56;
+}
+
+#innerBox {
+  background-color: white;
+}
+
+#innerTextBox {
+  background-color: white;
+  width: 80vw;
+  height: 39.5vh;
+  position: absolute;
+  top: 2vh;
+  left: 10vw;
+}
+#textBox-title {
+  font-size: 25px;
+  color: #101010;
+  width: 10vw;
+}
+
+#textBox-content {
+  width: 80vw;
+}
+
+#bg-popup {
+  width: 100vw;
+  height: 79vh;
+  background-color: gray;
+  opacity: 0.7;
+  position: fixed;
+  bottom: 0.01vh;
+  right: 0.01vw;
+  z-index: 1;
+}
+
+/*명품관 결제 팝업창 CSS*/
+#mallPaymentBtn {
+  cursor: pointer;
+}
+#paymentPopup {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: gray;
+  opacity: 0.7;
+  bottom: 0.01vh;
+  right: 0.01vw;
+  z-index: 5;
+}
+
+#paymentPopup-box {
+  width: 40vw;
+  height: 29vh;
+  background-color: white;
+  position: fixed;
+  left: 30vw;
+  top: 33vh;
+  opacity: 1;
+  margin: auto;
+  z-index: 6;
+}
+
+#paymentPopup-headerbar {
+  height: 8vh;
+  background-color: #cccccc;
+}
+
+#paymentPopup-headerbar > span {
+  position: absolute;
+  left: 1vw;
+  bottom: 23vh;
+  font-size: 20px;
+}
+
+#paymentPopup-cancle {
+  margin: 0;
+  position: relative;
+  left: 37.5vw;
+  top: 1.5vh;
+  width: 3vw;
+  height: 3vh;
+}
+
+#paymentPopup-cancle > a {
+  text-decoration: none;
+  color: black;
+}
+
+#paymentPopup-canclex {
+  color: #ffffff;
+}
+
+#paymentPopup-btn > span {
+  font-size: 30px;
+}
+
+#choosePayment {
+  display: flex;
+  width: 40vw;
+  height: 24vh;
+  background-color: white;
+}
+
+.pickup {
+  position: relative;
+  left: 28vw;
+  top: 1.5vh;
+}
+
+#kakaopay-payment {
+  position: absolute;
+  top: 1.5vh;
+  left: 4.1vw;
+}
+
+#toss-payment {
+  position: absolute;
+  top: 1.5vh;
+  left: 4.1vw;
+}
+
+#choosePayment-box1 {
+  cursor: pointer;
+  width: 15vw;
+  height: 10vh;
+  border: 3px solid #eaeaea;
+  position: absolute;
+  left: 4.6vw;
+  top: 15vh;
+}
+
+#choosePayment-box2 {
+  cursor: pointer;
+  width: 15vw;
+  height: 10vh;
+  border: 3px solid #eaeaea;
+  position: absolute;
+  left: 20.4vw;
+  top: 15vh;
+}
+
+#choosePayment-box1:hover {
+  border: 3px solid #856f56;
+}
+
+#choosePayment-box2:hover {
+  border: 3px solid #856f56;
+}
+/*여기까지가 명품관 팝업창 설정*/
+
+/* 명품관 반응형 */
+#luxury_page-1 {
+  width: 100%;
+  height: 100%;
+  min-height: 275vh;
+}
+
+#luxuryarticle-1 {
+  width: 100%;
+  margin: auto;
+  margin-top: 2vh;
+}
+
+#mallToolbar-1 {
+  font-size: 12px;
+  width: 34vw;
+  position: relative;
+  left: 47vw;
+  color: black;
+  bottom: 10px;
+}
+
+#mallItem {
+  margin-top: 7vh;
+}
+
+.itemZone {
+  position: relative;
+  width: 80vw;
+  height: 37vh;
+  margin: 0 auto;
+  margin-bottom: 3vh;
+}
+
+.itemName-1 {
+  position: relative;
+  top: 1vh;
+  font-size: 22px;
+}
+
+.itemImg {
+  min-width: 100%;
+  width: 80vw;
+  height: 30vh;
+}
+
+.itemBtn {
+  position: relative;
+  left: 11vw;
+}
+
+.itemBtn1 {
+  position: relative;
+  left: 14.5vw;
+}
+
+.itemBtn2 {
+  position: relative;
+  left: 17vw;
+}
+
+.itemName-1 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.itemPrice-1 {
+  font-size: 15px;
+}
+
+/*명품관 반응형 아이콘*/
+.mallCart-icon {
+  position: fixed;
+  bottom: 8vh;
+  left: 84.5vw;
+  border-radius: 18px;
+  background-color: white;
+  border: 1px solid #dbdbdb;
+  cursor: pointer;
+  z-index: 2;
+  width: 12vw;
+  height: 5vh;
+}
+
+#cartIcon {
+  position: relative;
+  left: 1.3vw;
+  top: 0.95vh;
+}
+
+.mallCart-popup {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  bottom: 0.05vh;
+  background-color: gray;
+  opacity: 0.7;
+  z-index: 1;
+}
+
+.mallCart-list {
+  position: fixed;
+  z-index: 1;
+  background-color: white;
+  width: 80vw;
+  height: 75vh;
+  left: 10vw;
+  top: 14.5vh;
+  border-radius: 20px;
+  border: 4px solid #856f56;
+}
+
+.mallCart-title {
+  position: relative;
+  top: 3vh;
+  margin-left: 3.3vw;
+  width: 72vw;
+  height: 13vh;
+  border-bottom: 1px solid #dbdbdb;
+  padding: 1vw 1vh;
+}
+
+.pickup-1 {
+  position: relative;
+  top: 1.8vh;
+  left: 0vw;
+}
+
+.mallCart-content {
+  position: relative;
+  width: 72vw;
+  top: 5vh;
+  margin: 0 auto;
+  height: 37vh;
+  border-bottom: 1px solid #dbdbdb;
+  padding-left: 1vw;
+}
+
+.mallCart-table {
+  width: 72vw;
+  line-height: 2.6vh;
+}
+
+#tbody2 tr td {
+  font-size: 11px;
+}
+
+#tbody2 #tr-cnt {
+  position: relative;
+  right: 4vw;
+}
+
+#tbody2 .minus {
+  width: 0.1vw;
+  height: 0.2vh;
+  font-weight: bold;
+  font-size: 2px;
+}
+#tbody2 .plus {
+  font-size: 2px;
+  width: 0.1vw;
+  height: 0.2vh;
+  font-weight: bold;
+}
+#tbody2 .delete {
+  font-size: 2px;
+  width: 0.1vw;
+  height: 0.2vh;
+  font-weight: bold;
+}
+
+#tbody2 .minus > span {
+  position: relative;
+  bottom: 1vh;
+  right: 0.5vw;
+}
+#tbody2 .plus > span {
+  position: relative;
+  bottom: 1vh;
+  right: 0.9vw;
+}
+#tbody2 .delete > span {
+  position: relative;
+  bottom: 1vh;
+  right: 0.9vw;
+}
+
+.cartPay {
+  position: relative;
+  width: 75vw;
+  height: 15vh;
+  margin: 0 auto;
+  top: 6.5vh;
+}
+
+#cartTotalPrice {
+  height: 7.7vh;
+  font-size: 1.2em;
+  padding-top: 1.5vh;
+  padding-left: 2vw;
+  color: #362311;
+  border-bottom: 1px solid #dbdbdb;
+  width: 72vw;
+  margin-left: 1.5vw;
+}
+
+#cartOrder {
+  display: flex;
+  height: 9vh;
+}
+
+#payType-kakao {
+  text-align: center;
+  line-height: 9vh;
+  flex: 1;
+  cursor: pointer;
+}
+
+#kakaoImg {
+  margin-top: 2.3vh;
+  width: 19vw;
+  height: 5vh;
+}
+#tossImg {
+  margin-top: 2.3vh;
+  width: 15vw;
+  height: 5vh;
+}
+
+#payType-toss {
+  text-align: center;
+  line-height: 8.5vh;
+  flex: 1;
+  cursor: pointer;
+}
+
+.badge {
+  width: 20px;
+  height: 20px;
+  border-radius: 10px 10px;
+  position: absolute;
+  right: 28px;
+  bottom: 27px;
+}
+.badgeadd {
+  color: white;
+  background-color: red;
+  font-weight: bold;
+}
+#badgeCnt {
+  width: 20px;
+  height: 20px;
+  border-radius: 10px 10px;
+  font-size: 1px;
+  position: absolute;
+  right: 0.5px;
+}
+
+.dark-mode .mallCart-list {
+  background-color: rgb(20, 20, 20);
+  border: 4px solid white;
+}
+.dark-mode .btn {
+  color: white;
+  border-color: white;
+}
+.dark-mode #cartTotalPrice {
+  color: white;
+}
+
+.dark-mode #headtit-1 h3 {
+  color: white;
+}
+
+.dark-mode #mallToolbar-1 {
+  color: white;
+}
+
+.dark-mode #headtit-1 {
+  border-bottom-color: white;
+}

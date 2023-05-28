@@ -1,0 +1,52 @@
+/* 오시는길 지도 크기 */
+#k-m {
+    width: 49vw;
+    height: 50vh;
+    position: relative;
+    overflow: hidden;
+}
+
+
+
+
+/* 오시는길 반응형 */
+@media screen and (max-width: 700px) {
+    #headtit {
+        display: inline-block;
+        position: relative;
+        left: 10vw;
+        width: 80vw;
+    }
+    #aside {
+        display: none;
+    }
+    #comepage {
+        height: 70.3vh;
+        width: 100%
+    }
+
+    #howtocomearticle {
+        height: 60vh;
+        width: 100%;
+        left: 0vw;
+        margin-top: 5vh;
+    }
+
+    #map-area {
+        position: relative;
+        left: 10vw;
+        width: 80vw;
+    }
+
+    .howtocome-headtit {
+        display: block;
+    }
+
+    #k-m {
+        width: 80vw;
+        height: 50vh;
+        position: relative;
+        overflow: hidden;
+    }
+
+}

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html  lang="ko" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" style="overflow-x: hidden;">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <script src="/js/Hotel.js"></script>
+  <script src="https://kit.fontawesome.com/7fe498c607.js" crossorigin="anonymous"></script>
+  <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=72764d4407eae4771ae834fbbe85f476"></script>
+  <link href='https://unpkg.com/css.gg@2.0.0/icons/css/youtube.css' rel='stylesheet'>
+  <link href='https://unpkg.com/css.gg@2.0.0/icons/css/instagram.css' rel='stylesheet'>
+  <link href='https://unpkg.com/css.gg@2.0.0/icons/css/facebook.css' rel='stylesheet'>
+  <link rel="stylesheet" href="/css/style.css">
+  <title>React Hotel</title>
+</head>
+<body>
+    <div th:replace="~{fragment/nav :: nav}"></div>
+	<div id="myPage_page"> 
+	
+      <!-- aside -->
+		<div id="myPageaside"> 
+			<div id="myPageinmenu">
+				<h3 id="tit">마이페이지</h3>
+				<ul id="myPagemenu">
+					<li id="internal_outline"><a href="/hotel/member/myPage" id="subh">나의 등급</a></li>
+					<hr> 
+					<li id="internal_outline1"><a href="#" id="subh" style="cursor: default">예약·주문 확인</a>
+						<ul style="list-style:none;">
+							<li class="mb-1.5" id="internal_outline1"><a href="/hotel/client/myroombook" id="subh" style="margin-left: -1.7vw; font-size: 0.8em;">객실</a></li>
+							<li id="internal_outline1"><a href="/hotel/client/mydinnerbook" id="subh" style="margin-left: -1.7vw; font-size: 0.8em;">다이닝</a></li>
+							<li id="internal_outline1"><a href="/hotel/mall/orderList" id="subh" style="margin-left: -1.7vw; font-size: 0.8em;">주문내역</a></li>
+						</ul>
+					</li>
+					<hr>
+					<li id="internal_outline1"><span id="subh">내정보</span>
+						<ul style="list-style:none;">
+							<li class="mb-1.5" id="internal_outline1"><a href="/hotel/member/profileupdate" id="subh" style="margin-left: -1.7vw; font-size: 0.8em;">프로필 수정</a></li>
+							<li id="internal_outline1"><a href="/hotel/member/changepassword" id="subh" style="margin-left: -1.7vw; font-size: 0.8em;">비밀번호 변경</a></li>
+						</ul>
+					</li>
+				</ul>  
+			</div>
+		</div>
+		
+      <div id="myPage_article">
+        <div id="headtit"> 
+          <h3>나의 등급</h3>
+          <div id="myPagetool">
+            <i class="fa-solid fa-house"></i> > 마이페이지 ><a href="myPage" id="subh"> 나의 등급</a>
+          </div>
+        </div>
+        <div id="gradeintro">
+         	<div style="margin-top: 3.5vh; text-align: center;">
+         		<div style="display:flex; text-align: center; margin-left: 16.5vw;">
+	         		<div>
+		         		<span id="myPageTit">R E A C T</span>
+	         		</div>
+	         		<div>
+		         		<span id="myPageTit1">R E W A R D S</span>
+	         		</div>
+         		</div>
+         	</div>
+         	<div id="myenum">
+	         	<div style="text-align: center;">
+	         		<span id="myenummenu">객실 및 식음업장 이용 실적에 따라 등급이 부여되며, 등급별로 추가 혜택을 받으실 수 있습니다.</span>
+	         	</div>
+	         	<div id="enumdiv" th:if="${member.userLevel == 'BRONZE'}">
+	        		<span>나의 등급: <span style="color: #8f6349;" th:text="${member.userLevel}"></span></span>
+	        	</div>
+	        	<div id="enumdiv" th:if="${member.userLevel == 'SILVER'}">
+	        		<span>나의 등급: <span style="color: #8f6349;" th:text="${member.userLevel}"></span></span>
+	        	</div>
+	        	<div id="enumdiv" th:if="${member.userLevel == 'GOLD'}">
+	        		<span>나의 등급: <span style="color: #8f6349;" th:text="${member.userLevel}"></span></span>
+        	</div>
+         	</div>
+        </div>
+        <div id="gradeintro1">
+        	<div id="gradeintro1_1">
+        		<div id="gradeintrobar">
+        			<div id="bronzebar">
+        				<span>신규 가입</span>
+        			</div>
+        			<div id="bronzebox1">
+	        			<div id="bronzebox">
+	        				<span id="gradeSubh-bronze">Bronze</span><br>
+	        				<span id="gradeSubh">회원 가입 시</span>
+	        			</div>
+	        			<div style="margin-top: 2vh;">
+	        				<img id="packageImg" alt="객실패키지" src="/img/package.png" style="width: 1vw; height: 1.5vh;"><span style="font-size: 0.8em;"> 회원 전용 패키지</span>
+	        			</div>
+        			</div>
+        		</div>
+        	</div>
+        	<div id="gradeintro1_2">
+        		<div id="gradeintrobar">
+        			<div id="silverbar">
+        				<img alt="숙박" src="/img/moon.png" style="width: 1vw; height: 1.5vh;"><span>연간 10박 숙박</span>
+        			</div>
+        			<div id="silverbox1">
+	        			<div id="silverbox">
+	        				<span id="gradeSubh-silver">Silver</span><br>
+	        				<span id="gradeSubh">연간 10박 숙박</span>
+	        			</div>
+	        			<div style="margin-top: 2vh;">
+	        				<img id="packageImg1" alt="객실패키지" src="/img/package.png" style="width: 1vw; height: 1.5vh;"><span style="font-size: 0.8em;"> 회원 전용 패키지</span>
+	        			</div>
+	        			<div style="margin-top: 2vh;">
+	        				<img id="discountImg1" alt="할인" src="/img/discount.png" style="width: 1vw; height: 1.5vh;"><span style="font-size: 0.8em;"> 할인</span>
+	        				<ul>
+	        					<li class="mb-3 mt-3" style="font-size: 0.7em; margin-left: -0.7vw;">객실 할인 5%</li>
+	        					<li style="font-size: 0.7em; margin-left: -0.7vw;">식음 할인 5%</li>
+	        				</ul>
+	        			</div>
+	        			<div style="margin-top: 2vh;">
+	        				<img id="boxImg1" alt="기타" src="/img/기타.png" style="width: 1vw; height: 1.5vh;"><span style="font-size: 0.8em;"> 기타</span>
+	        				<ul>
+	        					<li class="mb-3 mt-3" style="font-size: 0.7em; margin-left: -0.7vw;">투숙 중 무료 세탁 서비스</li>
+	        					<li class="mb-3 mt-3" style="font-size: 0.7em; margin-left: -0.7vw;">생일 케이크 제공 서비스</li>
+	        					<li style="font-size: 0.7em; margin-left: -0.7vw;">72시간 예약 개런티<br>*호텔 예약 상황에 따라 다름</li>
+	        				</ul>
+	        			</div>
+        			</div>
+        		</div>
+        	</div>
+        	<div id="gradeintro1_3">
+        		<div id="gradeintrobar">
+        			<div id="goldbar">
+        				<img alt="숙박" src="/img/moon.png" style="width: 1vw; height: 1.5vh;"><span>연간 20박 숙박</span>
+        			</div>
+        			<div id="goldbox1">
+	        			<div id="goldbox">
+	        				<span id="gradeSubh-gold">Gold</span><br>
+	        				<span id="gradeSubh">연간 20박 숙박</span>
+	        			</div>
+	        			<div style="margin-top: 2vh;">
+		        			<img id="packageImg2" alt="객실패키지" src="/img/package.png" style="width: 1vw; height: 1.5vh;"><span style="font-size: 0.8em;"> 회원 전용 패키지</span>
+		        		</div>
+		        		<div style="margin-top: 2vh;">
+	        				<img id="discountImg2" alt="할인" src="/img/discount.png" style="width: 1vw; height: 1.5vh;"><span style="font-size: 0.8em;" > 할인</span>
+	        				<ul>
+	        					<li class="mb-3 mt-3" style="font-size: 0.7em; margin-left: -0.7vw;">객실 할인 10%</li>
+	        					<li style="font-size: 0.7em; margin-left: -0.7vw;">식음 할인 10%</li>
+	        				</ul>
+	        			</div>
+		        		<div style="margin-top: 2vh;">
+	        				<img id="boxImg2" alt="기타" src="/img/기타.png" style="width: 1vw; height: 1.5vh;"><span style="font-size: 0.8em;"> 기타</span>
+	        				<ul>
+	        					<li class="mb-3 mt-3" style="font-size: 0.7em; margin-left: -0.7vw;">투숙 중 무료 세탁 서비스</li>
+	        					<li class="mb-3 mt-3" style="font-size: 0.7em; margin-left: -0.7vw;">생일 케이크 제공 서비스</li>
+	        					<li class="mb-3 mt-3" style="font-size: 0.7em; margin-left: -0.7vw;">라운지 무료 이용<br>(회원 포함 최대 2인)<br>*호텔 예약 상황에 따라 다름</li>
+	        					<li class="mb-3 mt-3" style="font-size: 0.7em; margin-left: -0.7vw;">객실 업그레이드<br>(등급 유효기간 내 5회)<br>-5회 중 1회는 스위트 객실 제공</li>
+	        					<li style="font-size: 0.7em; margin-left: -0.7vw;">초과 숙박 실적 이월</li>
+	        				</ul>
+	        			</div>
+        			</div>
+        		</div>
+        	</div>
+        </div>
+      </div>
+      <div>
+      </div>  
+    </div>
+    
+    <!-- 반응형 -->
+    <div id="myPage_page-1"> 
+      <div id="myPage_article-1">
+        <div id="gradeintro-1">
+         	<div id="myenum-1">
+	         	<div style="text-align: center;">
+	         		<span style="font-size: 0.75em; color: #979797;">객실 및 식음업장 이용 실적에 따라 등급이 부여되며, 등급별로 추가 혜택을 받으실 수 있습니다.</span>
+	         	</div>
+	         	<div id="enumdiv-1" th:if="${member.userLevel == 'BRONZE'}">
+	        		<span>나의 등급: <span style="color: #8f6349;" th:text="${member.userLevel}"></span></span>
+	        	</div>
+	        	<div id="enumdiv-1" th:if="${member.userLevel == 'SILVER'}">
+	        		<span>나의 등급: <span style="color: #8f6349;" th:text="${member.userLevel}"></span></span>
+	        	</div>
+	        	<div id="enumdiv-1" th:if="${member.userLevel == 'GOLD'}">
+	        		<span>나의 등급: <span style="color: #8f6349;" th:text="${member.userLevel}"></span></span>
+        	</div>
+         	</div>
+        </div>
+        <div id="gradeintro1-1">
+        	<div id="gradeintro1_1b">
+        		<div id="gradeintrobar">
+        			<div id="bronzebox1-1">
+	        			<div id="bronzebox-1">
+	        				<span style="color: #8f6349; font-size: 1.2em;">Bronze</span><br>
+	        				<span style="color: #6a6a6a; font-size: 0.7em;">회원 가입 시</span>
+	        			</div>
+	        			<div style="margin-top: 2vh;">
+	        				<img id="darkPackageImg" alt="객실패키지" src="/img/package.png" style="width: 2vw; height: 1.5vh;"><span style="font-size: 0.6em;"> 회원 전용 패키지</span>
+	        			</div>
+        			</div>
+        		</div>
+        	</div>
+        	<div id="gradeintro1_2s">
+        		<div id="gradeintrobar">
+        			<div id="silverbox1-1">
+	        			<div id="silverbox-1">
+	        				<span style="color: #a8a9ad; font-size: 1.2em;">Silver</span><br>
+	        				<span style="color: #6a6a6a; font-size: 0.7em;">연간 10박 숙박</span>
+	        			</div>
+	        			<div style="margin-top: 2vh;">
+	        				<img id="darkPackageImg1" alt="객실패키지" src="/img/package.png" style="width: 2vw; height: 1.5vh;"><span style="font-size: 0.6em;"> 회원 전용 패키지</span>
+	        			</div>
+	        			<div style="margin-top: 2vh;">
+	        				<img id="darkDiscountImg1" alt="할인" src="/img/discount.png" style="width: 2vw; height: 1.5vh;"><span style="font-size: 0.6em;"> 할인</span>
+	        				<ul>
+	        					<li class="mb-3 mt-3" style="font-size: 0.6em; margin-left: -4.5vw;">객실 할인 5%</li>
+	        					<li style="font-size: 0.6em; margin-left: -4.5vw;">식음 할인 5%</li>
+	        				</ul>
+	        			</div>
+	        			<div style="margin-top: 2vh;">
+	        				<img id="darkBoxImg1" alt="기타" src="/img/기타.png" style="width: 2vw; height: 1.5vh;"><span style="font-size: 0.6em;"> 기타</span>
+	        				<ul>
+	        					<li class="mb-3 mt-3" style="font-size: 0.6em; margin-left: -4.5vw;">투숙 중 무료 세탁 서비스</li>
+	        					<li class="mb-3 mt-3" style="font-size: 0.6em; margin-left: -4.5vw;">생일 케이크 제공 서비스</li>
+	        					<li style="font-size: 0.6em; margin-left: -4.5vw;">72시간 예약 개런티<br>*호텔 예약 상황에 따라 다름</li>
+	        				</ul>
+	        			</div>
+        			</div>
+        		</div>
+        	</div>
+        	<div id="gradeintro1_3g">
+        		<div id="gradeintrobar">
+        			<div id="goldbox1-1">
+	        			<div id="goldbox-1">
+	        				<span style="color: #9a8872; font-size: 1.2em;">Gold</span><br>
+	        				<span style="color: #6a6a6a; font-size: 0.7em;">연간 20박 숙박</span>
+	        			</div>
+	        			<div style="margin-top: 2vh;">
+		        				<img id="darkPackageImg2" alt="객실패키지" src="/img/package.png" style="width: 2vw; height: 1.5vh;"><span style="font-size: 0.6em;"> 회원 전용 패키지</span>
+		        		</div>
+		        		<div style="margin-top: 2vh;">
+	        				<img id="darkDiscountImg2" alt="할인" src="/img/discount.png" style="width: 2vw; height: 1.5vh;"><span style="font-size: 0.6em;" > 할인</span>
+	        				<ul>
+	        					<li class="mb-3 mt-3" style="font-size: 0.6em; margin-left: -4.5vw;">객실 할인 10%</li>
+	        					<li style="font-size: 0.6em; margin-left: -4.5vw;">식음 할인 10%</li>
+	        				</ul>
+	        			</div>
+		        		<div style="margin-top: 2vh;">
+	        				<img id="darkBoxImg2" alt="기타" src="/img/기타.png" style="width: 2vw; height: 1.5vh;"><span style="font-size: 0.6em;"> 기타</span>
+	        				<ul>
+	        					<li class="mb-3 mt-3" style="font-size: 0.6em; margin-left: -4.5vw;">투숙 중 무료 세탁 서비스</li>
+	        					<li class="mb-3 mt-3" style="font-size: 0.6em; margin-left: -4.5vw;">생일 케이크 제공 서비스</li>
+	        					<li class="mb-3 mt-3" style="font-size: 0.6em; margin-left: -4.5vw;">라운지 무료 이용<br>(회원 포함 최대 2인)<br>*호텔 예약 상황에 따라 다름</li>
+	        					<li class="mb-3 mt-3" style="font-size: 0.6em; margin-left: -4.5vw;">객실 업그레이드<br>(등급 유효기간 내 5회)<br>-5회 중 1회는 스위트 객실 제공</li>
+	        					<li style="font-size: 0.6em; margin-left: -4.5vw;">초과 숙박 실적 이월</li>
+	        				</ul>
+	        			</div>
+        			</div>
+        		</div>
+        	</div>
+        </div>
+      </div>
+      <div>
+      </div>  
+    </div>
+    <!--풋터-->
+    <div th:replace="~{fragment/footer :: footer}"></div>
+</body>
+</html>

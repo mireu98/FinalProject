@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script src="/js/Hotel.js"></script>
+    <script src="/js/mallOrder.js"></script>
+    <script src="https://kit.fontawesome.com/7fe498c607.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/scroll-out/dist/scroll-out.min.js"></script>
+    <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=72764d4407eae4771ae834fbbe85f476"></script>
+    <script src="https://js.tosspayments.com/v1/payment"></script>
+    <link href="https://unpkg.com/css.gg@2.0.0/icons/css/youtube.css" rel="stylesheet" />
+    <link href="https://unpkg.com/css.gg@2.0.0/icons/css/instagram.css" rel="stylesheet" />
+    <link href="https://unpkg.com/css.gg@2.0.0/icons/css/facebook.css" rel="stylesheet" />
+    <link href="https://unpkg.com/css.gg@2.0.0/icons/css/shopping-bag.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/orderStyle.css" />
+    <title>React Hotel</title>
+  </head>
+  <body>
+    <input type="hidden" name="_csrf" id="token" th:value="${_csrf.token}" />
+      <!-- 내브 -->
+      <div th:replace="~{fragment/nav :: nav}"></div>
+      <div class="orderList_page">
+        <!-- aside -->
+        <div id="myPageaside">
+          <div id="myPageinmenu">
+            <h3 id="tit">마이페이지</h3>
+            <ul id="myPagemenu">
+              <li id="internal_outline"><a href="/hotel/member/myPage" id="subh">나의 등급</a></li>
+              <hr />
+              <li id="internal_outline1">
+                <a href="/hotel/member/reservation" id="subh">예약·주문 확인</a>
+                <ul style="list-style: none">
+                  <li class="mb-1.5" id="internal_outline1"><a href="/hotel/client/myroombook" id="subh" style="margin-left: -1.7vw; font-size: 0.8em">객실</a></li>
+                  <li id="internal_outline1"><a href="/hotel/client/mydinnerbook" id="subh" style="margin-left: -1.7vw; font-size: 0.8em">다이닝</a></li>
+                  <li id="internal_outline1"><a href="/hotel/mall/orderList" id="subh" style="margin-left: -1.7vw; font-size: 0.8em">주문내역</a></li>
+                </ul>
+              </li>
+              <hr />
+              <li id="internal_outline1">
+                <span id="subh">내정보</span>
+                <ul style="list-style: none">
+                  <li class="mb-1.5" id="internal_outline1"><a href="/hotel/member/profileupdate" id="subh" style="margin-left: -1.7vw; font-size: 0.8em">프로필 수정</a></li>
+                  <li id="internal_outline1"><a href="/hotel/member/changepassword" id="subh" style="margin-left: -1.7vw; font-size: 0.8em">비밀번호 변경</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="orderList_article">
+          <div id="headtit">
+            <h3>주문내역</h3>
+            <div id="changepasswordtool"><i class="fa-solid fa-house"></i> > 마이페이지 > 내정보 ><a href="/hotel/mall/orderList" id="subh"> 주문내역</a></div>
+          </div>
+          <div id="tableDiv">
+            <table class="table" id="orderListTable">
+              <colgroup>
+                <col width="30%" />
+                <col width="30%" />
+                <col width="30%" />
+                <col width="10%" />
+              </colgroup>
+              <thead class="orderListThead">
+                <tr>
+                  <th>주문번호</th>
+                  <th>상품명</th>
+                  <th>결제날짜</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody class="orderListTbody">
+                <tr th:each="o : ${orderlist}">
+                  <td class="td-height" th:text="${o.orderNo}"></td>
+                  <td class="td-height">
+                    <a href="#none" th:onclick="|detailPopup('/hotel/mall/orderDetail?orderNo=${o.orderNo}')|" th:text="${o.itemName}" class="orderItemName" type="button"> </a>
+                  </td>
+                  <td class="td-height" th:text="${o.orderDate}"></td>
+                  <td>
+                    <button type="button" class="btn btn-outline-secondary orderCancel-btn">X</button>
+                    <input type="hidden" th:value="${o.orderNo}" class="order-No" />
+                    <input type="hidden" th:value="${o.itemName}" class="item-Name" />
+                    <input type="hidden" th:value="${o.orderEA}" class="order-EA" />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- 풋터 -->
+      <div th:replace="~{fragment/footer :: footer}"></div>
+  </body>
+</html>

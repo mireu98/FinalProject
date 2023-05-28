@@ -1,0 +1,373 @@
+/*명품관 상품 주문*/
+/*orderList*/
+.td-height {
+  line-height: 40px;
+}
+
+.orderListThead tr th {
+  color: black;
+}
+
+.orderListTbody tr {
+  color: black;
+}
+
+.orderItemName {
+  color: black;
+}
+
+.orderList_page {
+  width: 100%;
+  height: 70.4vh;
+  background-color: white;
+  overflow: hidden;
+  margin: 0 auto;
+  padding: 0 auto;
+}
+
+.orderList_article {
+  width: 49vw;
+  position: absolute;
+  left: 35vw;
+  margin-top: 10vh;
+  overflow: hidden;
+}
+
+#tableDiv {
+  max-height: 40vh;
+  overflow-y: scroll;
+  margin-top: 4vh;
+}
+
+.orderListThead {
+  position: sticky;
+  top: 0vh;
+  background-color: #f1e3c4;
+}
+
+/*결제완료페이지*/
+#orderCompletePage {
+  width: 100%;
+  height: 120vh;
+  background-color: white;
+}
+
+#orderCompleteArticle {
+  height: 110vh;
+  width: 50vw;
+  position: absolute;
+  left: 25vw;
+  margin-top: 10vh;
+}
+
+#order-headtit {
+  width: 49vw;
+  position: relative;
+  border-bottom: 0.4rem solid #a1886f;
+  color: #555;
+}
+
+#order-tool {
+  font-size: 12px;
+  width: 10vw;
+  position: relative;
+  left: 44.8vw;
+  color: black;
+  bottom: 10px;
+}
+
+#order-headtit > h3 {
+  color: #9e774c;
+}
+
+#order-box {
+  width: 49vw;
+  height: 90vh;
+}
+
+#order-box1 {
+  width: 48.8vw;
+  height: 20.8vh;
+  line-height: 20.8vh;
+  text-align: center;
+  font-size: 1.4em;
+}
+
+#order-box2 {
+  width: 48.8vw;
+  height: 29.8vh;
+}
+
+#orderCompleteImg {
+  width: 40vw;
+  height: 29.8vh;
+  margin-left: 4.4vw;
+}
+
+#order-box3 {
+  margin-top: 3vh;
+  width: 40vw;
+  height: 29.8vh;
+  border: 2px solid #cebda5;
+  margin-left: 4.4vw;
+}
+
+#order-box3-inner {
+  margin-top: 3vh;
+  margin-left: 1.4vw;
+  width: 37vw;
+  height: 23.4vh;
+  border: 1px solid #cccccc;
+  background-color: #f1f1f1;
+  text-align: center;
+  line-height: 13.4vh;
+}
+
+#orderCompleteGuide {
+  height: 11.7vh;
+  line-height: 11.7vh;
+}
+
+@media screen and (max-width: 700px) {
+  .orderList_page {
+    display: block;
+  }
+
+  .orderList_article {
+    display: block;
+    width: 100%;
+    position: relative;
+    left: 0;
+    margin-top: 0;
+  }
+
+  #myPageaside {
+    display: none;
+  }
+
+  #headtit {
+    display: inline-block;
+    border-bottom: 0;
+    background-color: #9e774c;
+    width: 100%;
+  }
+
+  #headtit h3 {
+    display: block;
+    color: white;
+    text-align: center;
+    margin-top: 4px;
+  }
+
+  #changepasswordtool {
+    display: none;
+  }
+
+  #tableDiv {
+    max-height: 66vh;
+    overflow-y: scroll;
+    margin-top: 0;
+    height: 66vh;
+  }
+
+  .orderListThead tr th {
+    font-size: 15px;
+  }
+
+  .orderListTbody tr td {
+    font-size: 14px;
+  }
+
+  .dark-mode #headtit {
+    border-bottom: 1px solid #dbdbdb;
+    border-top: 1px solid #dbdbdb;
+    background-color: #212529;
+  }
+
+  /*결제완료 페이지 반응형*/
+  #orderCompletePage {
+    width: 100%;
+    min-height: 70.9vh;
+    height: 100%;
+  }
+
+  #orderCompleteArticle {
+    width: 100%;
+    position: relative;
+    margin-top: 0;
+    left: 0;
+    height: 70.9vh;
+  }
+
+  #order-headtit {
+    display: none;
+  }
+
+  #order-box {
+    width: 100%;
+    height: 54vh;
+    position: relative;
+    top: 6vh;
+  }
+  #order-box1 {
+    width: 100%;
+    font-size: 0.9em;
+    height: 15vh;
+    line-height: 15vh;
+  }
+
+  #order-box2 {
+    width: 100%;
+  }
+
+  #orderCompleteImg {
+    width: 90%;
+    height: 27vh;
+    margin-top: 1.5vh;
+  }
+
+  #order-box3 {
+    display: none;
+  }
+
+
+  #goToOrderList {
+    width: 100%;
+    height: 10vh;
+  }
+
+  #orderListCheckBut {
+    width: 35vw;
+    height: 4vh;
+    position: relative;
+    left: 16vw;
+    top: 1.2vh;
+    font-size: 11px;
+  }
+  
+}
+
+/* 다크모드 */
+.dark-mode .orderList_page {
+  background-color: rgb(20, 20, 20);
+}
+
+.dark-mode .orderListTbody tr td,
+.dark-mode .orderItemName {
+  color: white;
+}
+
+.dark-mode #orderListTbody-1,
+.dark-mode #orderListTbody-1 a {
+  color: white;
+}
+.dark-mode .orderListToolbar-1 {
+  color: white;
+}
+.dark-mode .orderListThead-1,
+.dark-mode .orderListThead-1 th {
+  color: white;
+  background-color: #212529;
+}
+.dark-mode .orderCancel-btn {
+  color: white;
+  border-color: white;
+}
+
+.dark-mode .orderListThead,
+.dark-mode .orderListThead th {
+  background-color: #212529;
+  color: white;
+}
+.dark-mode .orderDetailCancel-btn {
+  color: white;
+  border-color: white;
+}
+.dark-mode .orderDetail-page {
+  background-color: rgb(20, 20, 20);
+}
+.dark-mode #orderDetailItem tr {
+  color: white;
+}
+
+.dark-mode #orderListHead {
+  border-bottom: 0.4rem solid white;
+  color: white;
+}
+
+/*결제완료페이지 다크모드*/
+.dark-mode #orderCompletePage {
+  background-color: black;
+}
+
+.dark-mode #order-headtit {
+  border-bottom: 0.4rem solid white;
+}
+
+.dark-mode #order-headtit > h3 {
+  color: white;
+}
+
+.dark-mode #order-tool {
+  color: white;
+}
+
+.dark-mode #orderCompleteGuide {
+  background-color: #212529;
+}
+
+.dark-mode #orderCompleteGuide span {
+  color: white;
+}
+
+
+/*orderDetail*/
+.orderDetail-tr th td {
+  color: black;
+}
+
+.orderDetail {
+  height: 699px;
+}
+
+.orderDetail-page {
+  height: 621.5px;
+}
+#orderDetail-article {
+  height: 620px;
+}
+
+.detailOrder {
+  position: relative;
+  top: 10px;
+}
+
+.orderDetail-title {
+  height: 50px;
+  border-bottom: 1px solid #d8d8d8;
+}
+
+.orderDetail-title span {
+  font-size: 25px;
+  position: relative;
+  left: 220px;
+  line-height: 50px;
+}
+
+.detail-title span {
+  position: relative;
+  left: 5px;
+  font-size: 20px;
+}
+
+.ordercancle button {
+  position: relative;
+  width: 100px;
+  left: 480px;
+  top: -5px;
+}
+
+.orderItem-img {
+  text-align: center;
+  margin: 5px auto;
+}

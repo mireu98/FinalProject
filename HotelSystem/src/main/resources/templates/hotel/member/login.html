@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" style="overflow-x: hidden;">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+	<script src="/js/Hotel.js"></script>
+	<script src="/js/validation.js"></script>
+	<script src="https://kit.fontawesome.com/7fe498c607.js" crossorigin="anonymous"></script>
+	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=72764d4407eae4771ae834fbbe85f476"></script>
+	<link href='https://unpkg.com/css.gg@2.0.0/icons/css/youtube.css' rel='stylesheet'>
+	<link href='https://unpkg.com/css.gg@2.0.0/icons/css/instagram.css' rel='stylesheet'>
+	<link href='https://unpkg.com/css.gg@2.0.0/icons/css/facebook.css' rel='stylesheet'>
+	<link rel="stylesheet" href="/css/style.css">
+	<script th:inline="javascript">
+		const msg = [[${msg}]];
+		if (msg != null) {
+			isLoadingStatus=false;
+			isLoadingStatusres=false;
+			alert(msg);
+			loader.hide();
+		}
+	</script>
+	<script th:inline="javascript">
+	let isLoadingStatus=false;
+				$(document).on('click','#loginbut',function(){
+					if(!isLoadingStatus){
+						isLoadingStatus=true;
+						const loader=$('.loaderbox');
+						loader.show();	
+				}
+			})
+				
+	</script>
+	<script th:inline="javascript">
+	let isLoadingStatusres=false;
+				$(document).on('click','#loginbut-1',function(){
+					if(!isLoadingStatusres){
+						isLoadingStatusres=true;
+						const loader=$('.loaderbox-res');
+						loader.show();	
+				}
+			})
+				
+	</script>
+	<script>
+		$(document).ready(function () {
+			let isLoadingStatus2=false;
+			let isLoadingStatus2res=false;
+			const token = $("#token").val();
+
+			$('#username').keyup(function (e) {
+				e.preventDefault();
+				e.stopPropagation();
+				let str = e.target.value;
+				str = str.toLowerCase();
+				e.target.value = str;
+			});
+
+			$('#findidcheckbut').click(async function () {
+				try {
+					const username = await $.ajax('/hotel/member/find_id?name=' + $('#find_id_name').val() + '&email=' + $('#find_id_email').val());
+					alert("당신의 아이디 : " + username);
+				} catch (err) {
+					alert("사용자를 찾지 못했습니다.");
+				}
+			});
+			
+			// 반응형 
+			$('#findidcheckbut-1').click(async function () {
+				try {
+					const username = await $.ajax('/hotel/member/find_id?name=' + $('#find_id_name-1').val() + '&email=' + $('#find_id_email-1').val());
+					alert("당신의 아이디 : " + username);
+				} catch (err) {
+					alert("사용자를 찾지 못했습니다.");
+				}
+			});
+
+			$('#findpasswordcheckbut').click(async function () {
+				if(!isLoadingStatus2){
+					isLoadingStatus2=true;
+					$(document).find('.loaderbox2').show();
+				try {
+					const url = '/hotel/member/find_password?name=' + $('#find_password_name').val() + '&username=' + $('#find_password_username').val() + '&email=' + $('#find_password_email').val() + '&_csrf=' + token;
+					const result = await $.ajax({
+						url: url,
+						method: "post"
+					});
+					$('.loaderbox2').hide();
+					alert("이메일로 임시비밀번호를 발급했습니다.");
+					location.reload();
+				} catch (err) {
+					$('.loaderbox2').hide();
+					alert("사용자를 찾지 못했습니다");
+					location.reload();
+				}
+				}
+			});
+			
+			//반응형
+			$('#findpasswordcheckbut-1').click(async function () {
+				if(!isLoadingStatus2res){
+					isLoadingStatus2res=true;
+					$(document).find('.loaderbox2-res').show();
+				try {
+					const url = '/hotel/member/find_password?name=' + $('#find_password_name-1').val() + '&username=' + $('#find_password_username-1').val() + '&email=' + $('#find_password_email-1').val() + '&_csrf=' + token;
+					const result = await $.ajax({
+						url: url,
+						method: "post"
+					});
+					$('.loaderbox2-res').hide();
+					alert("이메일로 임시비밀번호를 발급했습니다.");
+					location.reload();
+				} catch (err) {
+					$('.loaderbox2-res').hide();
+					alert("사용자를 찾지 못했습니다");
+					location.reload();
+				}
+				}
+			});
+		});
+	</script>
+	<title>React Hotel</title>
+	<style>
+	.loader{
+      position: relative;
+      overflow: hidden;
+      box-shadow: -5px -5px -5px
+        rgba(255,255,255,0.1),
+      10px 10px 10px rgba(0,0,0,0.4),
+      inset -5px -5px -5px rgba(255,255,255,0.2),
+      inset 10px 10px 10px rgba(0,0,0,0.4);
+      height: 100px;
+      width: 100px;
+      border-radius: 50%;
+      z-index: 20;
+      margin:0 0;
+    }
+    .loader:before{
+      position: absolute;
+      content: '';
+      z-index: 10;
+      opacity: 1;
+      top:25px;
+      left: 25px;
+      right: 25px;
+      bottom: 25px;
+      background-color: #f1ebd6;
+      border-radius: 50%;
+      box-shadow: -5px -5px -5px
+      rgba(255,255,255,0.1),
+      10px 10px 10px rgba(0,0,0,0.4),
+      inset -5px -5px -5px rgba(255,255,255,0.2),
+      inset 10px 10px 10px rgba(0,0,0,0.4);
+    }
+    .dark-mode .loader:before{
+      position: absolute;
+      content: '';
+      z-index: 10;
+      opacity: 1;
+      top:25px;
+      left: 25px;
+      right: 25px;
+      bottom: 25px;
+      background-color: white;
+      border-radius: 50%;
+      box-shadow: -5px -5px -5px
+      rgba(255,255,255,0.1),
+      10px 10px 10px rgba(0,0,0,0.4),
+      inset -5px -5px -5px rgba(255,255,255,0.2),
+      inset 10px 10px 10px rgba(0,0,0,0.4);
+    }
+	.loader span{
+	  position: absolute;
+	  height: 100%;
+	  width: 100%;
+	  filter: blur(20px);
+	  border-radius: 50%;
+	  background: linear-gradient(rgb(225, 116, 17), #f6bf8c, #ffffff);
+	  animation: loader 0.6s linear infinite;
+	  right: 1px;
+	}
+	.dark-mode .loader span{
+	  position: absolute;
+	  height: 100%;
+	  width: 100%;
+	  filter: blur(20px);
+	  border-radius: 50%;
+	  background: linear-gradient(rgb(0, 0, 0), black, #ffffff);
+	  animation: loader 0.6s linear infinite;
+	  right: 1px;
+	}
+	@keyframes loader {
+	  0%{
+	    transform: rotate(0deg);
+	  }
+	  100%{
+	    transform: rotate(360deg);
+	    }
+	}
+	@keyframes loader {
+	  0%{
+	    transform: rotate(0deg);
+	  }
+	  100%{
+	    transform: rotate(360deg);
+	    }
+	}
+	.box{
+	    border: 1px solid #000000;
+	}	
+	.loaderbox{
+	  	margin: 0;
+	    height: 100px;
+	    width: 100px;
+	    position: relative;
+	    left: 44%;
+    	bottom: 57%;
+	}
+	.loaderbox2{
+	  	margin: 0;
+	    height: 100px;
+	    width: 100px;
+	    position: relative;
+	    left: 40%;
+  		top: 25%;
+	}
+	.loaderbox-res{
+	  	margin: 0;
+	    height: 100px;
+	    width: 100px;
+	    position: relative;
+	    left: 32%;
+    	bottom: 136px;
+	}
+	.loaderbox2-res{
+	  	margin: 0;
+	    height: 100px;
+	    width: 100px;
+	    position: relative;
+	    left: 38%;
+  		top: 25%;
+	}
+	</style>
+</head>
+
+<body>
+	<div th:replace="~{fragment/nav :: nav}"></div>
+	<div id="loginpage">
+		<div id="loginarticle">
+			<div id="headtit">
+				<h3>로그인</h3>
+				<div id="logintool">
+					<i class="fa-solid fa-house"></i> ><a href="/hotel/member/login" id="subh"> 로그인</a>
+				</div>
+			</div>
+			<div id="loginblock1">
+				<div id="loginblock1_1">
+					<h3>React Hotel에 오신 것을 환영합니다.</h3>
+				</div>
+				<div id="loginblock1_2">
+					<p style="font-size: 0.9em">React Hotel 아이디와 비밀번호를 입력해 주시기 바랍니다.</p>
+				</div>
+				<div id="loginblock1_3">
+					<p style="font-size: 0.7em">※ React 회원이되시면 회원만을 위한 다양한 서비스와 혜택을 받으실 수 있습니다.</p>
+				</div>
+			</div>
+			<div id="loginblock2">
+				<div id="loginblock2_1">
+					<div id="loginblocknav">
+						<p>회원</p>
+					</div>
+					<form action="/hotel/member/login" method="post">
+						<div id="loginbar">
+							<div id="loginbar1">
+								<input type="text" id="username" name="username" placeholder="아이디 입력"
+									style="width: 15vw;">
+								<input type="password" id="password" name="password" placeholder="비밀번호"
+									style="width: 15vw;" class="mb-3 mt-3">
+							</div>
+							<div id="loginbarbut">
+								<button id="loginbut">로그인</button>
+							</div>
+						</div>
+						<input type="hidden" name="_csrf" id="token" th:value="${_csrf.token}">
+					</form>
+					<div id="logintoolbar">
+						<a href="/hotel/member/join" id="join-btn1"><span id="loginlink">회원가입</span></a>
+						<a href="#none" id="find_id"><span id="loginlink">아이디 찾기</span></a>
+						<script>
+							$('#find_id').click(function () {
+								$('#newdim').attr('style', 'display:block;');
+								$('#Box').attr('style', 'display:block');
+								$('html').attr('style', 'overflow:hidden');
+							});
+						</script>
+						<div id="newdim" style="display: none;"></div>
+						<div id="Box" style="display: none;">
+							<div id="findidbar">React Hotel 아이디 찾기</div>
+							<div id="findidbox">
+								<div id="findidbox1">
+									<div id="findidbox2">
+										<div id="findidbox2_1">
+											<div id="findidbox2_3">
+												<p>성명</p>
+											</div>
+											<div id="findidbox2_4">
+												<input type="text" id="find_id_name" style="width: 17.5vw;">
+											</div>
+										</div>
+										<div id="findidbox2_2">
+											<div id="findidbox2_3">
+												<p>이메일</p>
+											</div>
+											<div id="findidbox2_4">
+												<input type="text" id="find_id_email" style="width: 17.5vw;">
+											</div>
+										</div>
+									</div>
+									<div id="findidcheckbut">
+										<p>확인</p>
+									</div>
+								</div>
+							</div>
+							<div id="cancel">
+								<a href="#none" id="btn2"><span id="cancelx">x</span></a>
+								<script>
+									$('#btn2').click(function () {
+										$('#newdim').attr('style', 'display:none;');
+										$('#Box').attr('style', 'display:none');
+										$('html').attr('style', 'overflow:none');
+									});
+								</script>
+							</div>
+						</div>
+						<a href="#none" id="find_password"><span id="loginlink">비밀번호 찾기</span></a>
+						<script>
+							$('#find_password').click(function () {
+								$('#newdim1').attr('style', 'display:block;');
+								$('#Box1').attr('style', 'display:block');
+								$('html').attr('style', 'overflow:hidden');
+							});
+						</script>
+						<div id="newdim1" style="display: none;"></div>
+						<div id="Box1" style="display: none;">
+							<div id="findpasswordbar">React Hotel 임시비밀번호발급</div>
+							<div id="findpasswordbox">
+								<div id="findpasswordbox1">
+									<div id="findpasswordbox2">
+										<div id="findpasswordbox2_1">
+											<div id="findidbox2_3">
+												<p>성명</p>
+											</div>
+											<div id="findpasswordbox2_4">
+												<input type="text" id="find_password_name" name="name"
+													style="width: 17.5vw;">
+											</div>
+										</div>
+										<div id="findpasswordbox2_2">
+											<div id="findidbox2_3">
+												<p>아이디</p>
+											</div>
+											<div id="findpasswordbox2_4">
+												<input type="text" id="find_password_username" name="username"
+													style="width: 17.5vw;">
+											</div>
+										</div>
+										<div id="findpasswordbox2_2">
+											<div id="findpasswordbox2_3">
+												<p>이메일</p>
+											</div>
+											<div id="findpasswordbox2_4">
+												<input type="text" id="find_password_email" name="email"
+													style="width: 17.5vw;">
+											</div>
+										</div>
+									</div>
+									<div id="findpasswordcheckbut">
+										<p>확인</p>
+									</div>
+									<div id="findpasswordcheckbar">
+										<div id="findpasswordcheckbar1">
+											<div id="findpasswordcheckbar1_1">
+												<span>로그인을 하시려면?</span>
+											</div>
+											<div id="findpasswordcheckbar1_2">
+												<a href="/hotel/member/login" id="findpwlogin"><span>로그인</span></a>
+											</div>
+										</div>
+										<div id="findpasswordcheckbar2">
+											<div id="findpasswordcheckbar1_3">
+												<span>아이디를 찾으시려면?</span>
+											</div>
+											<div id="findpasswordcheckbar1_4">
+												<a href="#none" id="find_id1"><span>아이디찾기</span></a>
+												<script>
+													$('#find_id1').click(function () {
+														$('#newdim1').attr('style', 'display:none;');
+														$('#Box1').attr('style', 'display:none');
+														$('#newdim').attr('style', 'display:block;');
+														$('#Box').attr('style', 'display:block');
+													});
+												</script>
+												<div id="newdim" style="display: none;"></div>
+												<div id="Box" style="display: none;">
+													<div id="findidbar">React Hotel 아이디 찾기</div>
+													<div id="findidbox">
+														<div id="findidbox1">
+															<div id="findidbox2">
+																<div id="findidbox2_1">
+																	<div id="findidbox2_3">
+																		<p>성명</p>
+																	</div>
+																	<div id="findidbox2_4">
+																		<input type="text" id="find_id_name"
+																			style="width: 17.5vw;">
+																	</div>
+																</div>
+																<div id="findidbox2_2">
+																	<div id="findidbox2_3">
+																		<p>이메일</p>
+																	</div>
+																	<div id="findidbox2_4">
+																		<input type="text" id="find_id_email"
+																			style="width: 17.5vw;">
+																	</div>
+																</div>
+															</div>
+															<div id="findidcheckbut">
+																<p>확인</p>
+															</div>
+														</div>
+													</div>
+													<div id="cancel">
+														<a href="#none" id="btn2"><span id="cancelx">x</span></a>
+														<script>
+															$('#btn2').click(function () {
+																$('#newdim').attr('style', 'display:none;');
+																$('#Box').attr('style', 'display:none');
+																$('html').attr('style', 'overflow:none');
+															});
+														</script>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div id="cancel">
+								<a href="#none" id="passwordcancelbtn"><span id="cancelx">x</span></a>
+								<script>
+									$('#passwordcancelbtn').click(function () {
+										$('#newdim1').attr('style', 'display:none;');
+										$('#Box1').attr('style', 'display:none');
+										$('html').attr('style', 'overflow:none');
+									});
+								</script>
+							</div>
+							<div class="loaderbox2" style="display:none;">
+								<div class="loader">
+								<span></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="loginblock2_2">
+					<p style="font-size: 0.7em">이메일, 연락처 등의 정보가 변경되면 웹사이트에서 회원정보를 수정해주시기 바랍니다.</p>
+				</div>
+			</div>
+			<div class="loaderbox" style="display:none;">
+				<div class="loader">
+					<span></span>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 반응형 -->
+	<div id="loginpage-2">
+		<div id="loginarticle-1">
+			<div id="headtit">
+				<h3>로그인</h3>
+				<div id="logintool">
+					<i class="fa-solid fa-house"></i> ><a href="/hotel/member/login" id="subh"> 로그인</a>
+				</div>
+			</div>
+			<div id="loginblock1_100">
+				<div id="loginblock1_10">
+					<h6>React Hotel에 오신 것을 환영합니다.</h6>
+				</div>
+				<div id="loginblock1_20">
+					<p style="font-size: 0.65em">React Hotel 아이디와 비밀번호를 입력해 주시기 바랍니다.</p>
+				</div>
+				<div id="loginblock1_30">
+					<p style="font-size: 0.5em">※ React 회원이되시면 회원만을 위한 다양한 서비스와 혜택을 받으실 수 있습니다.</p>
+				</div>
+			</div>
+			<div id="loginblock2_100">
+				<div id="loginblock2_10">
+					<div id="loginblocknav-1">
+						<p>회원</p>
+					</div>
+					<form action="/hotel/member/login" method="post">
+						<div id="loginbar_3">
+							<div id="loginbar1_res">
+								<input type="text" id="username" name="username" placeholder="아이디 입력"
+									style="width: 50vw;">
+								<input type="password" id="password" name="password" placeholder="비밀번호"
+									style="width: 50vw;">
+							</div>
+							<div id="loginbarbut_res">
+								<button id="loginbut-1">로그인</button>
+							</div>
+						</div>
+						<input type="hidden" name="_csrf" th:value="${_csrf.token}">
+					</form>
+					<div id="logintoolbar-1">
+						<a href="/hotel/member/join" id="join_id-1"><span id="loginlink">회원가입</span></a>
+						<a href="#none" id="find_id-1"><span id="loginlink">아이디 찾기</span></a>
+						<script>
+							$('#find_id-1').click(function () {
+								$('#loginnewdim').attr('style', 'display:block;');
+								$('#loginBox').attr('style', 'display:block');
+								$('html').attr('style', 'overflow:hidden');
+							});
+						</script>
+						<div id="loginnewdim" style="display: none;"></div>
+						<div id="loginBox" style="display: none;">
+							<div id="findidbar-1">아이디 찾기</div>
+							<div id="findidbox">
+								<div id="findidbox1-1">
+									<div id="findidbox2-1">
+										<div id="findidbox2_10">
+											<div id="findidbox2_30">
+												<p>성명</p>
+											</div>
+											<div id="findidbox2_40">
+												<input type="text" id="find_id_name-1" style="width:44vw">
+											</div>
+										</div>
+										<div id="findidbox2_20">
+											<div id="findidbox2_30" >
+												<p>이메일</p>
+											</div>
+											<div id="findidbox2_40">
+												<input type="text" id="find_id_email-1" style="width:44vw">
+											</div>
+										</div>
+									</div>
+									<div id="findidcheckbut-1">
+										<p>확인</p>
+									</div>
+								</div>
+							</div>
+							<div id="findcancel">
+								<a href="#none" id="btn2-1"><span id="cancelx">x</span></a>
+								<script>
+									$('#btn2-1').click(function () {
+										$('#loginnewdim').attr('style', 'display:none;');
+										$('#loginBox').attr('style', 'display:none');
+										$('html').attr('style', 'overflow:none');
+									});
+								</script>
+							</div>
+						</div>
+						<a href="#none" id="find_password-1"><span id="loginlink">비밀번호 찾기</span></a>
+						<script>
+							$('#find_password-1').click(function () {
+								$('#passwordnewdim1').attr('style', 'display:block;');
+								$('#passwordBox1').attr('style', 'display:block');
+								$('html').attr('style', 'overflow:hidden');
+							});
+						</script>
+						<div id="passwordnewdim1" style="display: none;"></div>
+						<div id="passwordBox1" style="display: none;">
+							<div id="findpasswordbar-1">임시비밀번호발급</div>
+							<div id="findpasswordbox">
+								<div id="findpasswordbox1-1">
+									<div id="findpasswordbox2-1">
+										<div id="findpasswordbox2_10">
+											<div id="findidbox2_30">
+												<p>성명</p>
+											</div>
+											<div id="findpasswordbox2_40">
+												<input type="text" id="find_password_name-1" name="name"
+													style="width:50vw;">
+											</div>
+										</div>
+										<div id="findpasswordbox2_20">
+											<div id="findidbox2_30">
+												<p>아이디</p>
+											</div>
+											<div id="findpasswordbox2_40">
+												<input type="text" id="find_password_username-1" name="username"
+													style="width:50vw;">
+											</div>
+										</div>
+										<div id="findpasswordbox2_20">
+											<div id="findpasswordbox2_3">
+												<p>이메일</p>
+											</div>
+											<div id="findpasswordbox2_4">
+												<input type="text" id="find_password_email-1" name="email"
+													style="width:50vw;">
+											</div>
+										</div>
+									</div>
+									<div id="findpasswordcheckbut-1">
+										<p>확인</p>
+									</div>
+									<div id="findpasswordcheckbar10">
+										<div id="findpasswordcheckbar1-1">
+											<div id="findpasswordcheckbar1_10">
+												<span>로그인을 하시려면?</span>
+											</div>
+											<div id="findpasswordcheckbar1_20">
+												<a href="/hotel/member/login" id="findpwlogin"><span>로그인</span></a>
+											</div>
+										</div>
+										<div id="findpasswordcheckbar2-1">
+											<div id="findpasswordcheckbar1_30">
+												<span>아이디를 찾으시려면?</span>
+											</div>
+											<div id="findpasswordcheckbar1_40">
+												<a href="#none" id="find_id2"><span>아이디찾기</span></a>
+												<script>
+													$('#find_id2').click(function () {
+														$('#passwordnewdim1').attr('style', 'display:none;');
+														$('#passwordBox1').attr('style', 'display:none;');
+														$('#loginnewdim').attr('style', 'display:block;');
+														$('#loginBox').attr('style', 'display:block;');
+													});
+												</script>
+												<div id="loginnewdim" style="display: none;"></div>
+												<div id="loginBox" style="display: none;">
+													<div id="findidbar">React Hotel 아이디 찾기</div>
+													<div id="findidbox">
+														<div id="findidbox1-res">
+															<div id="findidbox2">
+																<div id="findidbox2_1">
+																	<div id="findidbox2_3">
+																		<p>성명</p>
+																	</div>
+																	<div id="findidbox2_4">
+																		<input type="text" id="find_id_name"
+																			style="width: 17.5vw;">
+																	</div>
+																</div>
+																<div id="findidbox2_2">
+																	<div id="findidbox2_3">
+																		<p>이메일</p>
+																	</div>
+																	<div id="findidbox2_4">
+																		<input type="text" id="find_id_email"
+																			style="width: 17.5vw;">
+																	</div>
+																</div>
+															</div>
+															<div id="findidcheckbut">
+																<p>확인</p>
+															</div>
+														</div>
+													</div>
+													<div id="findidcancle">
+														<a href="#none" id="btn2-2"><span id="cancelx">x</span></a>
+														<script>
+															$('#btn2-2').click(function () {
+																$('#loginnewdim').attr('style', 'display:none;');
+																$('#loginBox').attr('style', 'display:none');
+																$('html').attr('style', 'overflow:none');
+															});
+														</script>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div id="passwordcancel">
+								<a href="#none" id="passwordcancelbtn-1"><span id="cancelx">x</span></a>
+								<script>
+									$('#passwordcancelbtn-1').click(function () {
+										$('#passwordnewdim1').attr('style', 'display:none;');
+										$('#passwordBox1').attr('style', 'display:none');
+										$('html').attr('style', 'overflow:none');
+									});
+								</script>
+							</div>
+							<div class="loaderbox2-res" style="display:none;">
+								<div class="loader">
+								<span></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="loginblock2_20">
+					<p style="font-size: 0.1em">이메일, 연락처 등의 정보가 변경되면 <br>웹사이트에서 회원정보를 수정해주시기 바랍니다.</p>
+				</div>
+			</div>
+			<div class="loaderbox-res" style="display:none;">
+				<div class="loader">
+					<span></span>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- footer -->
+	<div th:replace="~{fragment/footer :: footer}"></div>
+</body>
+
+</html>

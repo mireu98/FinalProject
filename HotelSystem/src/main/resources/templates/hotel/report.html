@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html  lang="ko" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <script src="/js/Hotel.js"></script>
+  <script src="https://kit.fontawesome.com/7fe498c607.js" crossorigin="anonymous"></script>
+  <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=72764d4407eae4771ae834fbbe85f476"></script>
+  <link href='https://unpkg.com/css.gg@2.0.0/icons/css/youtube.css' rel='stylesheet'>
+  <link href='https://unpkg.com/css.gg@2.0.0/icons/css/instagram.css' rel='stylesheet'>
+  <link href='https://unpkg.com/css.gg@2.0.0/icons/css/facebook.css' rel='stylesheet'>
+  <link rel="stylesheet" href="/css/style.css">
+  <title>React Hotel</title>
+</head>
+<body>
+  <div th:replace="~{fragment/nav :: nav}"></div>
+  <!--고객 문의 게시판-->
+    <div id="reportpage"> 
+      <div id="aside"> 
+        <div id="inmenu">
+          <h3 id="tit">고객문의</h3><br>
+          <ul id="menu">
+            <li id="m1first"><a href="/hotel/contact" id="subh">연락처</a></li> <br> 
+            <li id="m2last"><a href="/hotel/board/list" id="subh">문의하기</a></li>
+          </ul>   
+        </div>
+      </div>
+      <div id="reportarticle">
+       <div id="headtit"> 
+          <h3>문의하기</h3>
+          <div id="toolbar">
+            <i class="fa-solid fa-house"></i> > 고객문의 ><a href="/hotel/report" id="subh"> 문의하기</a>
+          </div>
+        </div>
+        <div class="insert">
+          <table>
+            <tr>
+                <td class="col1"><span id="notnull">* </span>구분</td>
+                <td class="col2">
+                  <input type="radio">J.H호텔
+                </td>
+            </tr>
+            <tr>
+                <td class="col1"><span id="notnull">* </span>관련문의</td>
+                <td class="col2">
+                    <select name="" id="">
+                        <option value="">객실/패키지문의</option>
+                        <option value="">다이닝문의</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="col1"> 예약번호</td>
+                <td class="col2">
+                  <input type="text" style="width:250px;">
+                </td>
+            </tr>
+            <tr>
+                <td class="col1"><span id="notnull">* </span>제목</td>
+                <td class="col2">
+                  <input type="text" style="width:400px;">
+                </td>
+            </tr>
+            <tr>
+                <td class="col1"><span id="notnull">* </span>내용</td>
+                <td class="col2">
+                  <textarea name="" id="" cols="80" rows="5"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td class="col1"><span id="notnull">* </span>성명</td>
+                <td class="col2">
+                  <input type="text">
+                </td>
+            </tr>
+            <tr>
+              <td class="col1"><span id="notnull">* </span>이메일</td>
+              <td class="col2">
+              <input type="text" name="mailid">
+              <span class="a">@</span>
+              <input type="text" name="email">
+              <select name="mailslc">
+                    <option value="self" selected>직접입력</option>
+                    <option value="naver">naver.com</option>
+                    <option value="gm">gmail.com</option>
+                    <option value="da">daum.com</option>
+                    <option value="yah">yahoo.com</option>
+              </select>
+              </td>
+            </tr>
+            <tr>
+                <td class="col1"><span id="notnull">* </span>자동입력방지</td>
+                <td class="col2">
+                  <form method="post" action="join_ok.php">
+                    <span id="passwordname">juhyuck</span>
+                  <input type="text" placeholder="좌측에 보이는 문자(숫자)를 그대로 입력해주세요." style="width:400px;">
+                </form>
+                </td>
+            </tr>
+          </table>
+        </div>
+        <!--문의게시판목록-->
+        <hr>
+       <div id="reportboard">
+        <div id="boardlist">
+          <table class="table table-hover" style="text-align: center;">
+            <thead>
+              <tr>
+                <th>번호</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>작성일</th>
+                <th>조회수</th>
+              </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+          </table>
+          <div id="reportpagination">
+
+          </div>
+        </div>
+       </div>
+      </div>
+    </div>
+    <!--풋터-->
+    <div th:replace="~{fragment/footer :: footer}"></div>
+  </body>
+</html>

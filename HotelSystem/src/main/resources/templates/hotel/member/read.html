@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html  lang="ko" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" style="overflow-x: hidden;">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <script src="/js/Hotel.js"></script>
+  <script src="/js/validation.js"></script>
+  <script src="https://kit.fontawesome.com/7fe498c607.js" crossorigin="anonymous"></script>
+  <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=72764d4407eae4771ae834fbbe85f476"></script>
+  <link href='https://unpkg.com/css.gg@2.0.0/icons/css/youtube.css' rel='stylesheet'>
+  <link href='https://unpkg.com/css.gg@2.0.0/icons/css/instagram.css' rel='stylesheet'>
+  <link href='https://unpkg.com/css.gg@2.0.0/icons/css/facebook.css' rel='stylesheet'>
+  <link rel="stylesheet" href="/css/style.css">
+  <title>J.H.H.L</title>
+  <script>
+  $(document).ready(function() {
+  	$('#selectEmail').change(function(e) {
+    	const select = e.target.value;
+		if(select=="직접 입력") {
+			$('#email2').prop('disabled',false).focus();
+		} else {
+			$("#email2").val(select).prop('disabled',true);
+	    }
+	});
+  	
+	// 반응형
+	$('#selectEmail-1').change(function(e) {
+		const select = e.target.value;
+		if(select=="직접 입력") {
+			$('#email2-1').prop('disabled',false).focus();
+		} else {
+			$("#email2-1").val(select).prop('disabled',true);
+		}
+	});
+	  
+	$('#updatebtn').click(function() {
+		const formData = new FormData();
+		formData.append('email', $('#email1').val() + '@' + $('#email2').val());
+		formData.append('tel',$('#tel').val());
+		for(let key of formData.keys()) {
+			console.log(key + ":" + formData.get(key));
+		}
+		try {
+		$.ajax({
+			url: "/hotel/member/update", 
+			method:'post',
+			data: formData,
+			processData:false, 
+			contentType:false
+		});
+			alert("변경 성공");
+			location.reload();
+		} catch(err) {
+			alert("변경 실패");
+		}
+	});
+	
+	// 반응형
+	$('#updatebtn-1').click(function() {
+		const formData = new FormData();
+		formData.append('email', $('#email1').val() + '@' + $('#email2-1').val());
+		formData.append('tel',$('#tel-1').val());
+		for(let key of formData.keys()) {
+			console.log(key + ":" + formData.get(key));
+		}
+		try {
+		$.ajax({
+			url: "/hotel/member/update", 
+			method:'post',
+			data: formData,
+			processData:false, 
+			contentType:false
+		});
+			alert("변경 성공");
+			location.reload();
+		} catch(err) {
+			alert("변경 실패");
+		}
+	});
+		
+	$('#deletebtn').click(function() {
+  	const choice = confirm('정말 탈퇴하시겠습니까?');		
+  	if(choice==false) {
+	return false;
+	};
+	$('<form>').attr('action','/hotel/member/delete').attr('method','post').appendTo('body').submit();
+	alert('탈퇴가 완료되었습니다. 감사합니다.');
+	});
+	
+	// 반응형
+	$('#deletebtn-1').click(function() {
+  	const choice = confirm('정말 탈퇴하시겠습니까?');		
+  	if(choice==false) {
+	return false;
+	};
+	$('<form>').attr('action','/hotel/member/delete').attr('method','post').appendTo('body').submit();
+	alert('탈퇴가 완료되었습니다. 감사합니다.');
+	});
+	
+  });
+  </script>
+</head>
+<body>
+	<!-- nav -->
+	<div th:replace="~{fragment/nav :: nav}"></div>
+	
+<div id="read_page"> 
+
+	<!-- aside -->
+	<div id= "myPageaside"> 
+		<div id="myPageinmenu">
+			<h3 id="tit">마이페이지</h3>
+			<ul id="myPagemenu">
+				<li id="internal_outline"><a href="/hotel/member/myPage" id="subh">나의 등급</a></li>
+				<hr> 
+				<li id="internal_outline1"><a href="/hotel/member/reservation" id="subh">예약·주문 확인</a>
+					<ul style="list-style:none;">
+						<li class="mb-1.5" id="internal_outline1"><a href="/hotel/client/myroombook" id="subh" style="margin-left: -1.7vw; font-size: 0.8em;">객실</a></li>
+						<li id="internal_outline1"><a href="/hotel/client/mydinnerbook" id="subh" style="margin-left: -1.7vw; font-size: 0.8em;">다이닝</a></li>
+						<li id="internal_outline1"><a href="/hotel/mall/orderList" id="subh" style="margin-left: -1.7vw; font-size: 0.8em;">주문내역</a></li>
+					</ul>
+				</li>
+				<hr>
+				<li id="internal_outline1"><span id="subh">내정보</span>
+					<ul style="list-style:none;">
+						<li class="mb-1.5" id="internal_outline1"><a href="/hotel/member/profileupdate" id="subh" style="margin-left: -1.7vw; font-size: 0.8em;">프로필 수정</a></li>
+						<li id="internal_outline1"><a href="/hotel/member/changepassword" id="subh" style="margin-left: -1.7vw; font-size: 0.8em;">비밀번호 변경</a></li>
+					</ul>
+				</li>
+			</ul>  
+		</div>
+	</div>
+
+	<!-- article -->
+	<div id="read_article">
+	<div id="headtit"> 
+	<h3>프로필 수정</h3>
+	<div id="profileupdatetool">
+	<i class="fa-solid fa-house"></i> > 마이페이지 > 내정보 ><a href="profileupdate" id="subh"> 프로필 수정</a>
+	</div>
+	</div>
+	<div id="readintro">
+	<span>고객님의 정보를 언제든지 확인, 변경하실 수 있습니다.</span>
+	</div>
+		<table id="readtable">
+			<tr>
+				<td class="col1">이름</td>
+				<td class="col2" th:text="${member.name}"></td>
+			</tr>
+			<tr>
+				<td class="col1">아이디</td>
+				<td class="col2" th:text="${member.username}"></td>
+			</tr>
+			<tr>
+				<td class="col1">이메일</td>
+				<td class="col2">
+					<input type="text" name="email1" id="email1" th:value="${member.email1}">
+					&nbsp;@&nbsp;
+					<input type="text" name="email2" id="email2" th:value="${member.email2}">
+					&nbsp;
+					<select id="selectEmail">
+						<option>직접 입력</option>
+						<option>naver.com</option>
+						<option>daum.net</option>
+						<option>gmail.com</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td class="col1">휴대전화</td>
+				<td class="col2">
+					<input type="text" id="tel" name="tel" th:value="${member.tel}">
+				</td>
+			</tr>
+		</table>
+		<div id="deleteupdate">
+		<form id="delete" action="/hotel/member/delete" method="post">
+			<div>
+				<button id="deletebtn">회원탈퇴</button>
+			</div>
+			<input type="hidden" name="_csrf" th:value="${_csrf.token}">
+		</form>
+			<div>
+				<button id="updatebtn">변경</button>
+			</div>
+		</div>
+	</div>  
+</div>
+    
+<!-- 반응형 -->
+    <div id="read_page-1"> 
+
+	<!-- article -->
+	<div id="read_article-1">
+	<div id="changePasswordTit"> 
+          <h3 >프로필 수정</h3>
+    </div>
+	<div id="readintro-res">
+	<span>고객님의 정보를 언제든지 확인, 변경하실 수 있습니다.</span>
+	</div>
+		<table id="readtable-1">
+			<tr>
+				<td id="readCol1">이름</td>
+				<td id="readCol2" th:text="${member.name}"></td>
+			</tr>
+			<tr>
+				<td id="readCol1">아이디</td>
+				<td id="readCol2" th:text="${member.username}"></td>
+			</tr>
+			<tr>
+				<td id="readCol1">이메일</td>
+				<td id="readCol2">
+					<input type="text" name="email1" id="email1" th:value="${member.email1}">
+					&nbsp;@&nbsp;
+					<input type="text" name="email2" id="email2-1" th:value="${member.email2}">
+					&nbsp;
+					<select id="selectEmail-1">
+						<option>직접 입력</option>
+						<option>naver.com</option>
+						<option>daum.net</option>
+						<option>gmail.com</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td id="readCol1">휴대전화</td>
+				<td id="readCol2">
+					<input type="text" id="tel-1" name="tel" th:value="${member.tel}">
+				</td>
+			</tr>
+		</table>
+		<div id="deleteupdate">
+		<form id="delete" action="/hotel/member/delete" method="post">
+			<div>
+				<button id="deletebtn-1">회원탈퇴</button>
+			</div>
+			<input type="hidden" name="_csrf" th:value="${_csrf.token}">
+		</form>
+			<div>
+				<button id="updatebtn-1">변경</button>
+			</div>
+		</div>
+	</div>  
+</div>
+    <!-- footer -->
+    <div th:replace="~{fragment/footer :: footer}"></div>
+</body>
+</html>

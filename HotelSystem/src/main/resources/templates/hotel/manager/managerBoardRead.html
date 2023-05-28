@@ -1,0 +1,123 @@
+<!-- 관리자 :  김동욱 -->
+
+<!DOCTYPE html>
+<html  lang="ko" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="/js/managerMallList.js"></script>
+  <script src="/js/Hotel.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://kit.fontawesome.com/7fe498c607.js" crossorigin="anonymous"></script>
+  <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=72764d4407eae4771ae834fbbe85f476"></script>
+  <link rel="stylesheet" href="/css/managementStyle.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/mallStyle.css">
+    <link rel="stylesheet" href="/css/boardStyle.css">
+  <title>관리자</title>
+  <script>
+	
+  </script>
+</head>
+<body>
+  <input type="hidden" id="token" name="_csrf" th:value="${_csrf.token}">
+<div class="managment-2">
+  <div id="headerAndnav" class="navbar navbar-expand-sm">
+    <div id="div_logo">
+      <div id="logo">
+        <a href="/hotel/manager/bookList"><img src="/img/LOGO(1)-B.png" id="logoImg" alt="로고"></a>
+      </div>
+    </div>  
+ 	<form action="/hotel/member/logout" method="post">
+	    <div id="logoutArea">
+ 		  <input type="hidden" id="token" name="_csrf" th:value="${_csrf.token}">
+	      <button class="btn btn-secondary">로그아웃</button>
+	    </div>
+    </form>
+  </div>
+  <div id="managmentmain">
+    <div id = "asidearea">
+      <div id = "asidemenu">
+        <ul>
+          <li><a href="/hotel/manager/bookList" id="textcolor">예약조회</a></li>
+          <li><a href="/hotel/manager/memberSearch" id="textcolor">회원조회</a></li>
+          <li><a href="/hotel/manager/book" id="textcolor">예약</a></li>
+          <li><a href="/hotel/manager/managerMallList" id="textcolor">주문조회</a></li>
+          <li><a href="/hotel/manager/itemUpdate" id="textcolor">재고관리</a></li>
+          <li><a href="/hotel/manager/managerBoard" id="textcolor">문의게시판</a></li>
+        </ul>
+      </div>
+    </div>
+    </div>
+        <div id="managerboardarticle">
+          <div class="insert" id="reportinsert">
+          <table id="reporttable" class="table">
+            <tr>
+              <td class="col1">작성일</td>
+              <td class="col2">
+               <div id="boardNumber" th:text="${board.boardNo}" style="display: none;"></div>
+               <div th:text="${board.writeDay}"></div> 
+              </td>
+              </tr>
+            <tr>
+              <td class="col1"><span id="notnull"> </span>작성자</td>
+              <td class="col2">
+               <div th:text="${board.username}"></div>
+              </td>
+            </tr>
+            <tr>
+              <td class="col1"><span id="notnull"></span>제목</td>
+              <td class="col2">
+               <div th:text="${board.title}"></div>
+               </td>
+            </tr>
+            <tr>
+              <td class="col1" id="readcontent1"><span id="notnull"></span>내용</td>
+              <td class="col2" id="readcontent" >
+                <span th:text="${board.content}"></span>
+              </td>
+              	<script>
+              		const tdElement = $('#readcontent'); // 원하는 td 요소를 선택합니다
+              		const tdHeight = tdElement.height();
+              		console.log(tdHeight);
+              		const $readcontent=$('#readcontent1');
+              		$readcontent.attr('style',`height=${tdHeight}`);
+				</script>		
+            </tr>
+            <tr>
+              <td class="col1" ><span id="notnull"></span>답변</td>
+              <td class="col2" >
+		        <span th:text="${board.replyContent}"></span></td>
+            </tr>
+<!-- 답변 --><tr>
+              <td class="col1" sec:authorize="hasRole('ADMIN')"><span id="notnull"></span>답변</td>
+              <td class="col2" sec:authorize="hasRole('ADMIN')">
+	            <form action="/hotel/board/read" method="post">
+	              <input type="hidden" id="token" name="_csrf" th:value="${_csrf.token}">
+	              <input type="hidden" name="username" th:field="*{board.username}">
+	              <input type="hidden" name="boardNo"  th:field="*{board.boardNo}">
+	              <textarea id="replyContent" name="replyContent" cols="80" rows="4" maxlength='50'></textarea>
+			      <button id="managerreplybutton" class="btn btn-outline-dark">답변</button>
+		        </form>
+              </td>
+		    </tr>
+          </table>
+          <div>
+  <!-- 목록 --><div><a id="managerlistbutton" type="button" class="btn btn-outline-dark" href="/hotel/manager/managerBoard">목록</a></div> 
+          </div>
+       </div>
+        </div>
+       </div>
+   
+<div id="mallFooter">
+  <div id="managerFooterLogo">
+    <img src="/img/LOGO(1)-B.png" alt="로꼬" width="200vw;">
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,11 @@
+1. 개발용
+spring.datasource.driver-class-name=oracle.jdbc.OracleDriver
+spring.datasource.url=jdbc:oracle:thin:@finalproject_high?TNS_ADMIN=./src/main/resources/wallet/
+spring.datasource.username=ADMIN
+spring.datasource.password=1q2w3e4r!Q@W
+
+2. 서버용
+spring.datasource.driver-class-name=oracle.jdbc.OracleDriver
+spring.datasource.url=jdbc:oracle:thin:@finalproject_high?TNS_ADMIN=/home/ubuntu/Wallet_FinalProject/
+spring.datasource.username=ADMIN
+spring.datasource.password=1q2w3e4r!Q@W

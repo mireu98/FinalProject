@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hotel.management.v1.client.book.dao.BookDao">
+	<select id="findBooknoByusername" resultType="int">
+		select bookno from
+		book where username = #{username}
+	</select>
+	<select id="findByusername"
+		resultType="hotel.management.v1.client.book.dto.BookDto$finduser">
+		select u.username,u.userlevel,u.tel from users u where username =
+		#{username}
+	</select>
+	<select id="findRoomFromAndTo"
+		resultType="hotel.management.v1.client.book.dto.BookDto$findRoom">
+		select r.gradename,count(*)-(select count(*) from roombooking rb where
+		rb.checkin &lt; TO_DATE(#{from}, 'MM/DD/YYYY') and rb.checkout &gt;
+		to_date(#{to},'MM/DD/YYYY')) as
+		reservableOrNot,rp.breakfastprice,rp.gradeprice
+		from room r join roomprice rp on r.roomno = rp.roomno
+		GROUP BY r.gradename, rp.breakfastprice, rp.gradeprice
+	</select>
+	<insert id="addBook">
+		insert into book
+		values(BOOK_SEQ_BOOKNO.nextval,#{username},#{totalcnt},to_date(#{from},'MM/DD/YYYY'),#{booktel},#{booker},'체크인대기')
+	</insert>
+	<insert id="addRoomBooking">
+		insert into roombooking
+		select b.bookno, b.bookdate, to_date(#{checkOut},'MM/DD/YYYY'),
+		#{bfcheckbox},null, #{gradename}
+		from (
+		select bookno, bookdate
+		from book
+		where username = #{username} and bookdate =
+		to_date(#{checkin},'MM/DD/YYYY')
+		order by bookno desc
+		fetch first 1 row only
+		) b
+	</insert>
+	<insert id="addDinner">
+		insert into dinner select
+		b.bookno,b.totalcount,150000 from book b where
+		b.username=#{username}
+		and b.bookno=#{bookno}
+	</insert>
+
+	<select id="findByUsernameAndBookdate" resultType="int">
+		select
+		b.bookno from book b where username = #{username} and bookdate =
+		to_date(#{bookdate},'MM/DD/YYYY')
+	</select>
+	<select id="findBookdata"
+		resultType="hotel.management.v1.client.book.dto.BookDto$dinner">
+		select b.bookno,b.username from book b where b.username =
+		#{username} and b.booktel = #{booktel} and b.booker = #{booker} and
+		b.bookstatus = '체크인대기'
+	</select>
+	<select id="findMyBookByusername"
+		resultType="hotel.management.v1.client.book.dto.BookDto$mypagedinner">
+		select
+		rb.checkin,rb.checkout,bk.booker,bk.booktel,rb.bookroomgrade,rb.bookno
+		from
+		roombooking rb ,book bk
+		where
+
+		rb.checkin BETWEEN SYSDATE - INTERVAL '1' MONTH AND SYSDATE
+
+		and rb.bookno = bk.bookno and username = #{username}
+
+
+	</select>
+
+	<select id = "findMydinnerByusername" resultType="hotel.management.v1.client.book.dto.BookDto$mydinnerlist">
+		select
+			bk.booker,bk.bookdate,bk.booktel,rb.resno
+		from
+			dinner rb ,book bk
+		where
+
+
+
+		  rb.resno = bk.bookno and username = #{username}
+	</select>
+	<select id="chekbook" resultType="int">
+		SELECT count(b.bookno)
+		FROM book b
+		LEFT JOIN roombooking rb
+		ON b.bookno = rb.bookno
+		WHERE ((rb.checkin &lt;= to_date(#{to},'MM/DD/YYYY') AND rb.checkout &gt;=
+		to_date(#{from},'MM/DD/YYYY'))
+		OR (rb.checkin BETWEEN to_date(#{from},'MM/DD/YYYY') AND
+		to_date(#{to},'MM/DD/YYYY'))
+		OR (rb.checkout BETWEEN to_date(#{from},'MM/DD/YYYY') AND
+		to_date(#{to},'MM/DD/YYYY'))
+		OR (rb.checkin &lt;= to_date(#{from},'MM/DD/YYYY') AND rb.checkout
+		&gt;=to_date(#{to},'MM/DD/YYYY')))
+		AND b.username = #{username}
+
+	</select>
+	<select id="findUsersByUsername"
+		resultType="hotel.management.v1.client.book.dto.BookDto$myInFo">
+		select u.name,u.tel from users u where username = #{name}
+
+	</select>
+	<select id = "findmybookByfromAndto" resultType="hotel.management.v1.client.book.dto.BookDto$mypagedinner" >
+		select
+		rb.checkin,rb.checkout,bk.booker,bk.booktel,rb.bookroomgrade,rb.bookno
+		from
+		roombooking rb ,book bk
+		where rb.checkin  BETWEEN to_date(#{from},'YYYY-MM-DD') and to_date(#{to},'YYYY-MM-DD') and username = #{username} and rb.bookno = bk.bookno
+	
+	</select>
+	<select id="findmydinnerByusernameAndfrom" resultType="int">
+		select count(b.bookno) from book b,dinner d where b.bookno = d.resno and b.username = #{name} and b.bookdate=to_date(#{from},'MM/DD/YYYY')
+
+	</select>
+	<select id="findmydinnerByusernameAndfrom2" resultType="int">
+		select b.bookno from book b where b.username = #{name} and b.bookdate=to_date(#{from},'MM/DD/YYYY')
+	</select>
+	<insert id="managerdinner">
+		insert into book select book_seq_bookno.nextval,u.username,#{totalcnt},to_date(#{from},'YYYY-MM-DD'),u.tel,u.name,'체크인대기' from users u where u.username = #{booker}
+	</insert>
+	<insert id="manageraddDinnr">
+		insert into dinner select b.bookno,b.totalcount,150000 from book b where b.bookdate = to_date(#{from},'YYYY-MM-DD') and b.username = #{booker}
+	</insert>
+	<select id="findUserByUsername" resultType="int">
+		select count(*)from users where username = #{username}
+	</select>
+</mapper>

@@ -1,0 +1,131 @@
+/*관리자 : 김동욱*/
+
+#bigdiv {
+    display: flex;
+    width: 98vw;
+    height: 0vh;
+    margin: 0 auto;
+    border: 1px solid black;
+}
+
+#reportpage-1 {
+    width: 100%;
+    height: 90.8vh;
+
+}
+
+#p_content-0 {
+    display: flex;
+    width: 98vw;
+    height: 0vh;
+    margin: 0 auto;
+}
+
+
+#contactreport {
+    position: relative;
+    top: 1vh;
+
+}
+
+#contacttable tr th {
+    background-color: #f1e3c4;
+    text-align: center;
+}
+
+#contacttable tr th, #contacttable tr td {
+    border-bottom: 1px solid #DBDBDB;
+}
+
+#contacttable {
+    border-top: 1px solid #DBDBDB;
+}
+
+#contacttable tr td {
+    position: relative;
+    left: 2vw;
+    height: 3.5vw;
+}
+
+#contacttable {
+    width: 49vw;
+}
+
+#contactarticle {
+    height: 70vh;
+}
+
+.dark-mode #contacttable tr th {
+    background-color: #212529;
+}
+
+#page {
+    height: 80vh;
+}
+
+#contacttable tr td span {
+    display: inline-block;
+    width: 120px;
+}
+
+#p_content-2 {
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+#contactreport-2 {
+    position: relative;
+    top: 1vh;
+    left: 6vw;
+    margin-top: 1vh;
+}
+
+#contactimg-2 {
+    width: 30vw;
+    height: 20vh;
+    margin-top: 4vh;
+}
+
+@media screen and (max-width: 700px) {
+    #contactarticle {
+        width: 100%;
+        left: 0;
+
+    }
+
+    #contactmain {
+        margin-left: 3vw;
+    }
+
+    #headtit, #toolbar {
+
+        display: inline-block;
+    }
+
+    #contactmain {
+        width: 90vw;
+    }
+
+    #p_content-1 {
+        font-size: 1.09em;
+    }
+
+    #contactimg-2 {
+        width: auto;
+        height: auto;
+    }
+
+    #headtit {
+        width: 90vw;
+        margin-left: 3vw;
+    }
+
+    #toolbar {
+        width: 30vw;
+        margin-left: 70vw;
+    }
+
+    #contacttable {
+        width: 90vw;
+    }
+}

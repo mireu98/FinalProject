@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hotel.management.v1.board.dao.BoardDao">
+	
+	<!-- 관리자 : 김동욱 -->
+	
+	<insert id="write">
+		insert into board(boardNo, username, writeDay, title, content)
+		values(BOARD_SEQ_BOARDNO.nextval, #{username} , sysdate , #{title}, #{content})
+	</insert>
+
+	<select id="list" resultType="hotel.management.v1.board.entity.Board">  
+		select * from board order by boardNo desc
+	</select>
+
+	<select id="findMail" resultType="String">
+        select email from users where username = #{username}
+	</select>
+	
+	<select id="findByNo" resultType="hotel.management.v1.board.entity.Board">
+		select * from board where boardNo = #{boardNo}
+	</select>
+	
+	<select id="count" resultType="Integer">
+		select count(*) from board
+	</select>
+
+	<update id="update">
+		update board b 
+		set b.replycontent = #{replyContent}, replywriteday = sysdate 
+		where b.boardno=#{boardNo}
+	</update>	
+
+	<select id="findAll" resultType="hotel.management.v1.board.dto.BoardDto$FindAll">
+		select * from (select rownum as rnum , 
+		b.* from (select boardNo, username, writeDay, title 
+		FROM board order by boardNo desc) 
+		b where rownum &lt; #{endRownum}) 
+		where rnum &gt; #{startRownum}
+	</select>
+	
+	<delete id="delete">
+		delete from board where boardNo = #{boardNo}
+	</delete>
+	
+</mapper>

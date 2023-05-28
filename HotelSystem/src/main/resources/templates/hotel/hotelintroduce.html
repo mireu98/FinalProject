@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html  lang="ko" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" style="overflow-x: hidden;">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <script src="/js/Hotel.js"></script>
+  <script src="https://kit.fontawesome.com/7fe498c607.js" crossorigin="anonymous"></script>
+  <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=72764d4407eae4771ae834fbbe85f476"></script>
+  <link href='https://unpkg.com/css.gg@2.0.0/icons/css/youtube.css' rel='stylesheet'>
+  <link href='https://unpkg.com/css.gg@2.0.0/icons/css/instagram.css' rel='stylesheet'>
+  <link href='https://unpkg.com/css.gg@2.0.0/icons/css/facebook.css' rel='stylesheet'>
+  <link rel="stylesheet" href="/css/style.css">
+  <title>React Hotel</title>
+</head>
+<body>
+  <span th:replace="~{fragment/nav :: nav}"></span>
+	<div id="internalFacilities_page"> 
+      <div id= "aside"> 
+        <div id="inmenu">
+          <h3 id="tit">호텔소개</h3>
+            <ul id="menu">
+              <li id="internal_outline"><a href="/hotel/hotelintroduce" id="subh">개요</a></li><br> 
+              <li id="internal_outline1"><a href="/hotel/hotelstay" id="subh">React 스테이</a></li><br>
+              <li id="internal_outline1"><a href="/hotel/internalfacilities" id="subh">부대시설 소개</a></li>
+            </ul>  
+        </div>
+      </div>
+      <div id="internalFacilities_article">
+        <div id="headtit"> 
+          <h3>개요</h3>
+          <div id="introducetool">
+            <i class="fa-solid fa-house"></i> > 호텔소개 ><a href="/hotel/hotelintroduce" id="subh"> 개요</a>
+          </div>
+        </div>
+        <div class="mb-3 mt-3">
+          <img src="/img/hotelDesk.jpg" alt="호텔소개" width="941vw" height="270vh">
+        </div>
+          <div id="outline_page" class="mb-3 mt-3">
+            <h4 id="hotel_introduce">
+              Samsung Group Affiliate
+            </h4>
+            <div class="mb-3 mt-3">
+              <p id="mission_font">React Hotel은 국빈 방문과 국제 행사를 치러내며 'React 그룹을 대표하는 얼굴'이자 '한국을 대표하는 호텔'로서 자부심과 책임감을 가지고 우리나라 서비스 산업을 선도하고 있습니다.</p>
+            </div>
+            <div>
+              <p id="mission_font">React Hotel은 천년 역사 속 가장 찬란한 문화 예술을 꽃피웠던 React의 이름에서 유래 하였으며, 삼성그룹 이병철 초대 회장의 뜻에 따라 1979년 3월 개관하였습니다.</p>
+            </div><br>
+            <div class="mb-3 mt-3">
+              <h4 id="hotel_introduce">
+                The Best Hospitality Company
+              </h4>
+              <div class="mb-3 mt-3">
+                <p id="mission_font">React Hotel은 '최고의 호스피탈리티 기업'을 목표로 오랫동안 품위와 전통을 유지하며 고객의 마음을 사로잡아 왔습니다.
+                LHW 가입을 통해 세계 최고의 럭셔리 호텔들과 어깨를 나란히 하고, 전통 위에 현대적인 디자인 요소를 가미하여 삶에 여유와 품격을
+                더하는 프리미엄 라이프스타일 공간으로 변화를 거듭해 왔습니다.</p>
+              </div>
+              <div class="mb-3 mt-3">
+                <p id="mission_font">React Hotel은 앞으로도 끊임없는 창조적  혁신과 도전을 바탕으로 차별화된 최상의 가치를 선사하는 글로벌 호스피탈리티 명문 기업으로 나아갈
+                것입니다.</p>
+              </div><br>
+              <div class="mb-3 mt-3">
+                <h4 id="hotel_introduce">
+                  Vision
+                </h4>
+                <div class="mb-3 mt-3">
+                  <p style="font-size: 0.85em;">Premium Lifestyle Leading Company</p>
+                  <p id="mission_font">최고의 품격과 신뢰를 바탕으로 고객이 꿈꾸는 라이프스타일을 제공하는 글로벌 선도기업</p>
+                </div>
+              </div><br>
+              <div class="mb-3 mt-3">
+                <h4 id="hotel_introduce">
+                  Mission
+                </h4>
+                <p id="mission_font">우리는 최고의 라이프 스타일 전문가로서 더 많은 인류에게 품격과 자부심을 경험케 한다.</p>
+              </div>
+              <div class="mb-3 mt-3">
+                <h4 id="hotel_introduce">
+                  Core Value Pride of React
+                </h4><br>
+                <div>
+                  <ul>
+                    <li id="mission_font">모든 사업에 최고를 지향합니다.</li>
+                    <li id="mission_font">모든 업무에서 혁신을 추구합니다.</li>
+                    <li id="mission_font">모든 고객에게 정성을 다합니다.</li>
+                    <li id="mission_font">모든 React인은 서로를 존중합니다.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>  
+    </div>
+    <div id="internalFacilities_page-1"> 
+      <div id="internalFacilities_article-1">
+        <div id="headtit-1"> 
+          <h3>개요</h3>
+          <div id="toolbar-1">
+            <i class="fa-solid fa-house"></i> > 호텔소개><a href="/hotel/hotelintroduce" id="subh"> 개요</a>
+          </div>
+        </div>
+        <div class="mb-3 mt-3">
+          <img src="/img/hotelDesk.jpg" alt="호텔소개" id="hotelintroduceimage-res">
+        </div>
+          <div id="outline_page-1" class="mb-3 mt-3">
+            <h4 id="hotel_introduce-res">
+              Samsung Group Affiliate
+            </h4>
+            <div class="mb-3 mt-3">
+              <p id="mission_font-res">React Hotel은 국빈 방문과 국제 행사를 치러내며 'React 그룹을 대표하는 얼굴'이자 '한국을 대표하는 호텔'로서 자부심과 책임감을 가지고 우리나라 서비스 산업을 선도하고 있습니다.</p>
+            </div>
+            <div>
+              <p id="mission_font-res">React Hotel은 천년 역사 속 가장 찬란한 문화 예술을 꽃피웠던 신라왕조의 이름에서 유래 하였으며, 삼성그룹 이병철 초대 회장의 뜻에 따라 1979년 3월 개관하였습니다.</p>
+            </div><br>
+            <div class="mb-3 mt-3">
+              <h4 id="hotel_introduce-res">
+                The Best Hospitality Company
+              </h4>
+              <div class="mb-3 mt-3">
+                <p id="mission_font-res">React Hotel은 '최고의 호스피탈리티 기업'을 목표로 오랫동안 품위와 전통을 유지하며 고객의 마음을 사로잡아 왔습니다.
+                LHW 가입을 통해 세계 최고의 럭셔리 호텔들과 어깨를 나란히 하고, 전통 위에 현대적인 디자인 요소를 가미하여 삶에 여유와 품격을
+                더하는 프리미엄 라이프스타일 공간으로 변화를 거듭해 왔습니다.</p>
+              </div>
+              <div class="mb-3 mt-3">
+                <p id="mission_font-res">React Hotel은 앞으로도 끊임없는 창조적  혁신과 도전을 바탕으로 차별화된 최상의 가치를 선사하는 글로벌 호스피탈리티 명문 기업으로 나아갈
+                것입니다.</p>
+              </div><br>
+              <div class="mb-3 mt-3">
+                <h4 id="hotel_introduce-res">
+                  Vision
+                </h4>
+                <div class="mb-3 mt-3">
+                  <p style="font-size: 0.85em;">Premium Lifestyle Leading Company</p>
+                  <p id="mission_font-res">최고의 품격과 신뢰를 바탕으로 고객이 꿈꾸는 라이프스타일을 제공하는 글로벌 선도기업</p>
+                </div>
+              </div><br>
+              
+              <div class="mb-3 mt-3">
+                <h4 id="hotel_introduce-res">
+                  Core Value Pride of The Shilla
+                </h4><br>
+                <div>
+                  <ul>
+                    <li id="mission_font-res">모든 사업에 최고를 지향합니다.</li>
+                    <li id="mission_font-res">모든 업무에서 혁신을 추구합니다.</li>
+                    <li id="mission_font-res">모든 고객에게 정성을 다합니다.</li>
+                    <li id="mission_font-res">모든 신라인은 서로를 존중합니다.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>  
+    </div>
+    <!--풋터-->
+    <span th:replace="~{fragment/footer :: footer}"></span>
+  </body>
+</html>
